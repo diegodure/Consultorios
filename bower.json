@@ -1,0 +1,16 @@
+{
+  "name": "stock",
+  "main": "",
+  "description": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "jquery": "1.11.3",
+    "angular": "1.4.1",
+    "angular-route": "1.4.1",
+    "bootstrap": "3.3.6",
+    "angular-ui-sortable": "^0.17.1",
+    "jquery-ui": "^1.12.1",
+    "angularjs-datepicker": "^2.1.23"
+  }
+}

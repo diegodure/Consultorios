@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fca07c85-97c2-4e5a-8787-df6c66e84617" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XwZlxLnUxCgt7IUfWW0pgs1afE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Angular/reporte.html" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\Angular" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fca07c85-97c2-4e5a-8787-df6c66e84617" name="Default Changelist" comment="" />
+      <created>1555711920775</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1555711920775</updated>
+      <workItem from="1555711923034" duration="281000" />
+      <workItem from="1555712800386" duration="4531000" />
+      <workItem from="1555775701569" duration="7010000" />
+      <workItem from="1555872800700" duration="180000" />
+      <workItem from="1555873069109" duration="53000" />
+      <workItem from="1555873148539" duration="680000" />
+      <workItem from="1555949803647" duration="3315000" />
+      <workItem from="1555959238544" duration="5232000" />
+      <workItem from="1555967370134" duration="5814000" />
+      <workItem from="1555984782825" duration="3507000" />
+      <workItem from="1556195575450" duration="2078000" />
+      <workItem from="1556306588988" duration="10384000" />
+      <workItem from="1556474727449" duration="6602000" />
+      <workItem from="1556986403089" duration="5478000" />
+      <workItem from="1557282576131" duration="621000" />
+      <workItem from="1557339516173" duration="650000" />
+      <workItem from="1558142077221" duration="607000" />
+      <workItem from="1558196161423" duration="268000" />
+      <workItem from="1559431351790" duration="2188000" />
+      <workItem from="1559534440639" duration="2656000" />
+      <workItem from="1559565528711" duration="872000" />
+      <workItem from="1560297509883" duration="1841000" />
+      <workItem from="1560357137663" duration="599000" />
+      <workItem from="1560445497171" duration="620000" />
+      <workItem from="1560528414790" duration="2784000" />
+      <workItem from="1560544413098" duration="1787000" />
+      <workItem from="1560896970267" duration="3723000" />
+      <workItem from="1561564397040" duration="1985000" />
+      <workItem from="1561585513002" duration="2742000" />
+      <workItem from="1562773691383" duration="1880000" />
+      <workItem from="1574800652709" duration="526000" />
+      <workItem from="1574801527833" duration="919000" />
+      <workItem from="1581959532310" duration="6138000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
