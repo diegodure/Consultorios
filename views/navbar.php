@@ -9,11 +9,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" style="font-style:italic;
-  font-weight:bold;
-  font-size:2em;
-  font-color:#ffffff;
-  font-family:'Helvetica','Verdana','Monaco',sans-serif;">Consultorio</a>
+      <a class="navbar-brand" href="#">
+        <img rel=icon src='../img/Impulse.png' sizes="32x32" width="32" height="32" type="image/png">
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

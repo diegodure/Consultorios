@@ -18,17 +18,17 @@
 
 			$usuario = $_POST['user'];
 			$pass = $_POST['pass'];
-			$sql = "select * from Usuarios where User='$usuario' and Pass='$pass'";
+			$sql = "select Usuarios.User, Usuarios.Pass, Roles.Nombre as rol from Usuarios inner join Roles on Usuarios.Roles_idRol=Roles.idRol where User='$usuario' and Pass='$pass'";
 			
 			
 			if($result = $con->query($sql)){
 				$row = $result->fetch_array();
-				$_SESSION["user"] = $row['User'];
+				$_SESSION["user"] = $row['rol'];
 				echo '<div class="logoLogin"><i class="fas fa-spinner"></i></div>';
-				echo '<script> window.location="views/pacientes.php"; </script>';
+				echo '<script> window.location="views/agenda.php"; </script>';
 			}else{
-				echo '<script> alert("User o password incorrectos");</script>';
-				echo '<script> window.location="login.php"; </script>';
+				 echo '<script> alert("User o password incorrectos");</script>';
+				 echo '<script> window.location="login.php"; </script>';
 			}
 		}
 	?>

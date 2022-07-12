@@ -2,7 +2,7 @@
     <div class="container">
       <p class="navbar-text pull-left">&copy <?php echo date('Y');?> -
            <a href="#" target="_blank" style="color: #ecf0f1">Source Innovation</a>
-           <img rel=icon src='../img/source.png' sizes="32x32" width="32" height="32" type="image/png">
+           <img rel=icon src='../img/Impulse.png' sizes="32x32" width="32" height="32" type="image/png">
       </p>
 
    </div>

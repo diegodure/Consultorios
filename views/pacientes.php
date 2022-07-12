@@ -23,13 +23,13 @@
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<div class="btn-group pull-left">
+				<div class="btn-group pull-right">
 					<button type='button' class="btn btn-info" ng-click="mostrarModal()"><span class="glyphicon glyphicon-plus"></span> Nuevo Paciente</button>
 					
 
 				</div>
 
-				<h4 class="text-left" style="padding-left: 11em;" ><i class='glyphicon glyphicon-search'></i> Buscar Paciente</h4>
+				<h4><i class='glyphicon glyphicon-search'></i> Buscar Paciente</h4>
 			</div>
 					<div class="panel-body">
 						<form class="form-horizontal" role="form" id="datos_cotizacion">
@@ -104,6 +104,11 @@
 </body>
 </html>
 <?php
+		if($_SESSION['user'] != "Administrador"){
+			// echo '<script>
+			// isNotAdmin();
+			// </script>';
+		}
 	 }else{
 	 	echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';
