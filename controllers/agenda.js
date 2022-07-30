@@ -1,4 +1,4 @@
-angular.module('agenda',['angularModalService','720kb.datepicker'])
+angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker'])
 
 .factory("flash", function($rootScope) {
 
@@ -135,8 +135,10 @@ angular.module('agenda',['angularModalService','720kb.datepicker'])
         // Una vez que el modal sea cerrado, la libreria invoca esta función
             // y en result tienes el resultado.
             
-        $scope.resultadoModal = result;
-        $scope.selectPacientes();
+        if(result){
+          // $scope.selectConsultas();
+        }
+        
       })
     })
   }
@@ -145,7 +147,39 @@ angular.module('agenda',['angularModalService','720kb.datepicker'])
 })
 
 .controller('consultaCtrl', function($scope, close, $http, info,flash){
+  if(info != undefined){
+    $scope.fecha = info.dateStr;
+  }
+  
+  angular.element($("#spinerContainer")).css("display", "block");
+  $http.get('../models/selectPacientes.php').success(function(data){
+    angular.element($("#spinerContainer")).css("display", "none");
+    $scope.pacientes = data;
+  });
+  
+  $scope.cerrarModal = function(){
+    close();
+  };
 
-  console.log(info)
+  $scope.guardarConsulta = function(){
+    var model = {
+      idPaciente: $scope.paciente,
+      servicio: $scope.servicio,
+      fecha: $scope.fecha,
+      time: $scope.time,
+      motivo : $scope.motivo,
+      observacion : $scope.observacion
+    };
+    if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
+      || model.time == undefined || model.motivo == undefined){
+        $scope.msgTitle = 'Atención';
+        $scope.msgBody  = 'Debe completar los campos requeridos!';
+        $scope.msgType  = 'warning';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+    }else{
+      
+    }
+    console.log(model)
+  }
   
 })

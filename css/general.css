@@ -329,5 +329,8 @@ body{
         color: white;
     }
 }
+.fc .fc-daygrid-day-top{
+    flex-direction: column;
+}
 
 

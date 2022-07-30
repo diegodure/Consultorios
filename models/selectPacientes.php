@@ -2,7 +2,7 @@
 
 	include("../conect.php");
 
-	$sql = "select * from Pacientes";
+	$sql = "select Pacientes.idPaciente, Pacientes.Nombres, Pacientes.Apellidos, Pacientes.Ci, Pacientes.Ciudad, Pacientes.Barrio, Pacientes.Descripcion, Pacientes.Telefono, Generos.idGenero as idGender, Generos.Nombre as genderName from Pacientes inner join Generos on Pacientes.Generos_idGenero=Generos.idGenero";
 
 
 	$results = mysqli_query($con,$sql);

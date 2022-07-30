@@ -10,3 +10,5 @@
 	<link rel="stylesheet" type="text/css" href="../css/general.css">
 	<link rel=icon href='../img/Impulse.png' sizes="32x32" type="image/png">
 	<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+
+	<link href="../css/angular-moment-picker.min.css" rel="stylesheet">

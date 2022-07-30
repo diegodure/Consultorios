@@ -2,10 +2,81 @@
 <div class="modal">
 	<div class="modal-header">
 			<button ng-click="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title"><i class='glyphicon glyphicon-edit'></i> Agregar nuevo Paciente</h4>
+			<h4 class="modal-title"><i class='glyphicon glyphicon-edit'></i> Agregar nueva Consulta</h4>
 	</div>
 	<div class="modal-body">
-sdfsd
+		<small style="font-weight: bolder;color: #286090;">Campos Obligatorios(*)</small>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Paciente (*)</label>
+			<div class="col-sm-8">
+				<select name="selectProveedor" class="form-control" id="selectProveedor" ng-model="paciente">
+					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
+      				<option ng-repeat="paciente in pacientes" value="{{paciente.idPaciente}}">
+      					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
+      				</option> <!-- interpolation -->
+				</select>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Servicio (*)</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" ng-model="servicio" required>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Fecha (*)</label>
+			<div class="col-sm-8">
+				<datepicker date-format="yyyy-MM-dd" selector="form-control" button-prev-title="previous month" button-next-title="next month">
+	                <div class="input-group">
+	                    <input class="form-control" placeholder="Fecha de la Consulta" ng-model="fecha" style="cursor: pointer"/>
+	                    <span class="input-group-addon">
+	                    <i class="fa fa-lg fa-calendar"></i>
+	                    </span>
+	                </div>
+	            </datepicker>
+	        </div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Hora (*)</label>
+			<div class="col-sm-8">
+				<div class="input-group"
+				     moment-picker="time"
+				     format="HH:mm:ss">
+				    <span class="input-group-addon">
+				        <i class="octicon octicon-clock"></i>
+				    </span>
+				    <input class="form-control"
+				           placeholder="Select a time"
+				           ng-model="time"
+				           ng-model-options="{ updateOn: 'blur' }">
+				</div>
+	        </div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Motivo (*)</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" ng-model="motivo" required>
+	        </div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Observación</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" ng-model="observacion" required>
+	        </div>
+		</div>
+		<br>
+		<br>
 		
 	</div>
 	<div class="modal-footer">

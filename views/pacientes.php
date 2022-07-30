@@ -35,9 +35,9 @@
 						<form class="form-horizontal" role="form" id="datos_cotizacion">
 				
 							<div class="form-group row">
-								<label for="q" class="col-md-2 control-label">Ci del Paciente</label>
+								<label for="q" class="col-md-2 control-label">Buscar Paciente</label>
 								<div class="col-md-5">
-									<input type="text" class="form-control" id="q" placeholder="Ci del Paciente" ng-model="buscar.ci">
+									<input type="text" class="form-control" id="q" placeholder="Buscar Paciente" ng-model="buscar.$">
 								</div>
 								<div class="col-md-3">
 									<button type="button" class="btn btn-default" ng-click="modificar()">
@@ -56,18 +56,20 @@
 									<th>Apellido</th>
 									<th>RUC/CI</th>
 									<th>Telefono</th>
+									<th>Ciudad</th>
 									<th class='text-right'>Acciones</th>
 								</tr>
 								
-								<tr ng-repeat="paciente in pacientes | orderBy:ordenSeleccionado | filter:buscar">
+								<tr ng-repeat="paciente in pacientes | orderBy:ordenSeleccionado | filter:buscar:strict">
 									<td>{{paciente.idPaciente}}</td>
 									<td>{{paciente.Nombres}}</td>
 							
 									<!-- Filtro lowercase para letras en minusculas -->
 									<td>{{paciente.Apellidos | lowercase}}</td>
 							
-									<td>{{paciente.ci}}</td>
+									<td>{{paciente.Ci}}</td>
 									<td>{{paciente.Telefono}}</td>
+									<td>{{paciente.Ciudad}}</td>
 
 									<td><span class="pull-right">
 									<a href="#" class='btn btn-default' title='Editar Paciente' ng-click="modificar(paciente)" data-toggle="modal"><i class="glyphicon glyphicon-edit"></i></a>

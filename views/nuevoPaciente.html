@@ -5,9 +5,10 @@
 			<h4 class="modal-title"><i class='glyphicon glyphicon-edit'></i> Agregar nuevo Paciente</h4>
 		  </div>
 		<div class="modal-body">
+			<small style="font-weight: bolder;color: #286090;">Campos Obligatorios(*)</small>
 			<br>
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Nombres</label>
+				<label class="col-sm-4 control-label">Nombres (*)</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" ng-model="nombre" required>
 				</div>
@@ -15,7 +16,7 @@
 			<br>
 			<br>
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Apellidos</label>
+				<label class="col-sm-4 control-label">Apellidos (*)</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" ng-model="apellido" required>
 				</div>
@@ -23,9 +24,17 @@
 			<br>
 			<br>
 			<div class="form-group">
-				<label  class="col-sm-4 control-label">CI</label>
+				<label  class="col-sm-4 control-label">CI/RUC (*)</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" ng-model="ci" required>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="form-group">
+				<label  class="col-sm-4 control-label">Telefono(*)</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model="telefono">
 				</div>
 			</div>
 			<br>
@@ -47,17 +56,12 @@
 			<br>
 			<br>
 			<div class="form-group">
-				<label  class="col-sm-4 control-label">Telefono</label>
+				<label  class="col-sm-4 control-label">Género (*)</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" ng-model="telefono">
-				</div>
-			</div>
-			<br>
-			<br>
-			<div class="form-group">
-				<label  class="col-sm-4 control-label">Género</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" ng-model="genero">
+					<select name="genero" class="form-control" id="genero" ng-model="genero">
+						<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
+	      				<option ng-repeat="gender in genders" value="{{gender.idGenero}}">{{gender.Nombre}}</option> <!-- interpolation -->
+					</select>
 				</div>
 			</div>
 			<br>
