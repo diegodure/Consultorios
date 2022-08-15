@@ -21,7 +21,7 @@
         <li class=""><a href="pacientes.php"><i class='glyphicon glyphicon-user'></i> Pacientes</a></li>
         <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-list-alt'></i> Consultas</a></li>
         <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-list-alt'></i> Proesionales</a></li>
-        <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-list-alt'></i> Servicios</a></li>
+        <li class=""><a href="servicios.php"><i class='glyphicon glyphicon-list-alt'></i> Servicios</a></li>
 		    <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-list-alt'></i> Usuarios</a></li>
 
        </ul>

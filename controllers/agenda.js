@@ -126,6 +126,30 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 	});
 
   $scope.newDate = function(info){
+    if(info){
+      var dateToCalendar = info.dateStr;
+      var actualDate = new Date();
+      var mes= actualDate.getMonth()+1;
+      var dia= actualDate.getDate();
+      var mes = (mes < 10) ? ("0" + mes) : mes;
+      var dia = (dia < 10) ? ("0" + dia) : dia;
+      var year = actualDate.getFullYear();
+      actualDate = year+"-"+mes+"-"+dia;
+      if(new Date(dateToCalendar) < new Date(actualDate)){
+        $scope.msgTitle = 'Atención';
+        $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
+        $scope.msgType  = 'warning';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      }else{
+        $scope.openModal(info);
+      }
+    }else{
+      $scope.openModal(info);
+    }
+    
+  }
+
+  $scope.openModal = function(info){
     ModalService.showModal({
       templateUrl: "nuevaConsulta.html",
       controller: "consultaCtrl",
@@ -147,10 +171,22 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 })
 
 .controller('consultaCtrl', function($scope, close, $http, info,flash){
+  var actualDate = new Date();
+  var mes= actualDate.getMonth()+1;
+  var dia= actualDate.getDate();
+  var mes = (mes < 10) ? ("0" + mes) : mes;
+  var dia = (dia < 10) ? ("0" + dia) : dia;
+  var year = actualDate.getFullYear();
+  var hour = actualDate.getHours();
+  var minute = actualDate.getMinutes();
+  actualTime = hour+":"+minute
+  actualDate = year+"-"+mes+"-"+dia;
   if(info != undefined){
     $scope.fecha = info.dateStr;
+  }else{
+    $scope.fecha = actualDate;
   }
-  
+  $scope.time = actualTime;
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectPacientes.php').success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
@@ -163,23 +199,50 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 
   $scope.guardarConsulta = function(){
     var model = {
-      idPaciente: $scope.paciente,
+      idPaciente: $scope.pacientes.idPaciente,
+      profesional: $scope.profesional,
       servicio: $scope.servicio,
       fecha: $scope.fecha,
       time: $scope.time,
       motivo : $scope.motivo,
       observacion : $scope.observacion
     };
-    if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
-      || model.time == undefined || model.motivo == undefined){
+    // if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
+    //   || model.time == undefined || model.motivo == undefined){
+    //     $scope.msgTitle = 'Atención';
+    //     $scope.msgBody  = 'Debe completar los campos requeridos!';
+    //     $scope.msgType  = 'warning';
+    //     flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+    // }else{
+      
+    // }
+    if(new Date(model.fecha) < new Date(actualDate)){
+      $scope.msgTitle = 'Atención';
+      $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
+      $scope.msgType  = 'warning';
+      flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+    }else{
+      var actualDate = new Date();
+      var hour = actualDate.getHours();
+      var minute = actualDate.getMinutes();
+      actualTime = hour+":"+minute
+      if(model.time < actualTime){
         $scope.msgTitle = 'Atención';
-        $scope.msgBody  = 'Debe completar los campos requeridos!';
+        $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-    }else{
-      
+      }else{
+        if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
+         || model.time == undefined || model.motivo == undefined || model.profesional == undefined){
+          $scope.msgTitle = 'Atención';
+          $scope.msgBody  = 'Debe completar los campos requeridos';
+          $scope.msgType  = 'warning';
+          flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+        }else{
+          console.log(model);
+        }
+      }
     }
-    console.log(model)
   }
   
 })

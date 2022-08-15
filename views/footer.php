@@ -27,6 +27,7 @@
     <script type="text/javascript" src="../controllers/pacientes.js"></script>
     <script type="text/javascript" src="../controllers/consultas.js"></script>
     <script type="text/javascript" src="../controllers/agenda.js"></script>
+    <script type="text/javascript" src="../controllers/servicios.js"></script>
     
 
 
