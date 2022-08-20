@@ -2,7 +2,7 @@
 
 	include("../conect.php");
 
-	$sql = "select Servicios.idServicio, Servicios.Nombre, Servicios.Descripcion, Servicios.Costo from Servicios where Active='0'";
+	$sql = "select Profesionales.idProfesionale, Profesionales.Nombres, Profesionales.Apellidos, Profesionales.Ci, Profesionales.Telefono from Profesionales where Active='0'";
 	
 	$results = $con->query($sql);
 

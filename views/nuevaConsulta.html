@@ -10,7 +10,7 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Paciente (*)</label>
 			<div class="col-sm-8">
-				<select name="selectProveedor" class="form-control" id="selectProveedor" ng-model="paciente">
+				<select class="form-control" ng-model="paciente">
 					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
       				<option ng-repeat="paciente in pacientes" value="{{paciente.idPaciente}}">
       					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
@@ -23,7 +23,12 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Profesional (*)</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" ng-model="profesional" required>
+				<select class="form-control" ng-model="profesional">
+					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
+      				<option ng-repeat="profesional in profesionales" value="{{profesional.idProfesionale}}">
+      					{{profesional.Nombres}} {{profesional.Apellidos}}
+      				</option> <!-- interpolation -->
+				</select>
 			</div>
 		</div>
 		<br>
@@ -31,7 +36,12 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Servicio (*)</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" ng-model="servicio" required>
+				<select class="form-control" ng-model="servicio">
+					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
+      				<option ng-repeat="servicio in servicios" value="{{servicio.idServicio}}">
+      					{{servicio.Nombre}} - {{servicio.Costo}}
+      				</option> <!-- interpolation -->
+				</select>
 			</div>
 		</div>
 		<br>

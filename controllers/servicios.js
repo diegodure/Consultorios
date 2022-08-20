@@ -96,8 +96,7 @@ angular.module('servicios',['angularModalService'])
 			templateUrl: "eliminarServicio.html",
 			controller: "eliminarCtrl",
 			inputs: {
-				idServicio: servicio.idServicio,
-				nombe: servicio.Nombre
+				servicio: servicio
 			}
 		}).then(function(modal){
 			modal.close.then(function(result){
@@ -112,58 +111,21 @@ angular.module('servicios',['angularModalService'])
 	
 })
 
-.controller('eliminarCtrl', function($scope, close, $http, idServicio, nombe,flash){
+.controller('eliminarCtrl', function($scope, close, $http, servicio,flash){
 
 	$scope.cerrarModal = function(){
 		close();
 	};
 	
-
+	console.log(servicio)
 	var model = {
-		idServicio: idServicio,
-		nombe: nombre
+		idServicio: servicio.idServicio,
+		nombe: servicio.Nombre
 	};
 
-
-	$http.post("../models/eliminarServicio.php", model)
-	.success(function(res){
-		
-	});
-	
-})
-
-	//El controller del modal modificar totalmente independiente de la pagina principal
-.controller('modificarCtrl', function($scope, close, $http, paciente,flash){
-	$scope.nombre = paciente.Nombres;
-	$scope.apellido = paciente.Apellidos;
-	$scope.ci = paciente.Ci;
-	$scope.telefono = paciente.Telefono;
-	$scope.ciudad = paciente.Ciudad;
-	$scope.barrio = paciente.Barrio;
-	$scope.descripcion = paciente.Descripcion;
-	var miGenero;
-	angular.element($("#spinerContainer")).css("display", "block");
-	
-	$scope.cerrarModal = function(){
-		close();
-	};
-	$scope.modificarPaciente = function(){
-		var model = {
-			nombre: $scope.nombre,
-			apellido: $scope.apellido,
-			ci: $scope.ci,
-			id: paciente.idPaciente,
-			telefono: $scope.telefono,
-			ciudad: $scope.ciudad,
-			barrio: $scope.barrio,
-			genero: $scope.miGen.idGenero,
-			descripcion: $scope.descripcion
-		};
-		console.log(model)
-		angular.element($("#spinerContainer")).css("display", "block");
-		$http.post("../models/modificarPacientes.php", model)
+	$scope.eliminarServicio = function(){
+		$http.post("../models/eliminarServicio.php", model)
 		.success(function(res){
-			angular.element($("#spinerContainer")).css("display", "none");
 			if(res == "error"){
 				$scope.msgTitle = 'Error';
 		    	$scope.msgBody  = 'Ha ocurrido un error!';
@@ -176,15 +138,55 @@ angular.module('servicios',['angularModalService'])
 		 		flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
 		 		close(true);				
 			}
-			$scope.nombre = null;
-			$scope.apellido = null;
-			$scope.ci = null;
-			$scope.telefono = null;
-			$scope.ciudad = null;
-			$scope.barrio = null;
-			$scope.genero = null;
-			$scope.descripcion = null;
 		});
+	}
+	
+})
+
+	//El controller del modal modificar totalmente independiente de la pagina principal
+.controller('modificarCtrl', function($scope, close, $http, servicio,flash){
+	$scope.idServicio = servicio.idServicio;
+	$scope.nombre = servicio.Nombre;
+	$scope.descripcion = servicio.Descripcion;
+	$scope.costo = servicio.Costo;
+
+	$scope.cerrarModal = function(){
+		close();
+	};
+	$scope.modificarServicio = function(){
+		var model = {
+			idServicio: $scope.idServicio,
+			nombre: $scope.nombre,
+			descripcion: $scope.descripcion,
+			costo: $scope.costo
+		};
+		if(model.nombre == undefined || model.costo == undefined){
+			$scope.msgTitle = 'Atención';
+		  	$scope.msgBody  = 'Debe completar los campos obligatorios!';
+		  	$scope.msgType  = 'warning';
+		 	flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+		}else{
+			angular.element($("#spinerContainer")).css("display", "block");
+			$http.post("../models/modificarServicio.php", model)
+			.success(function(res){
+				angular.element($("#spinerContainer")).css("display", "none");
+				if(res == "error"){
+					$scope.msgTitle = 'Error';
+			    	$scope.msgBody  = 'Ha ocurrido un error!';
+			    	$scope.msgType  = 'error';
+			 		flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+				}else{
+					$scope.msgTitle = 'Exitoso';
+			    	$scope.msgBody  = res;
+			    	$scope.msgType  = 'success';
+			 		flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+			 		close(true);				
+				}
+				$scope.nombre = null;
+				$scope.descripcion = null;
+				$scope.costo = null;
+			});
+		}
 	};
 })
 
@@ -204,10 +206,11 @@ angular.module('servicios',['angularModalService'])
 
 		if(model.nombre == undefined || model.costo == undefined){
 			$scope.msgTitle = 'Atención';
-		  	$scope.msgBody  = 'Debe completar los campos requeridos!';
+		  	$scope.msgBody  = 'Debe completar los campos obligatorios!';
 		  	$scope.msgType  = 'warning';
 		 	flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
 		}else{
+			console.log(model)
 			angular.element($("#spinerContainer")).css("display", "block");
 			$http.post("../models/insertServicio.php", model)
 			.success(function(res){
@@ -226,7 +229,7 @@ angular.module('servicios',['angularModalService'])
 				}
 				$scope.nombre = null;
 				$scope.descripcion = null;
-				$scope.costo = null;;
+				$scope.costo = null;
 			});
 		}
 	}

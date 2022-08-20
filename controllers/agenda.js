@@ -115,13 +115,13 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     ]
     });
 
-        calendar.render();
-        var topbar = angular.element($(".navbar-default")).innerHeight();
-        var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();
-        var formGroup = angular.element($(".form-group")).innerHeight();
-        var calendar = angular.element($(".fc-view-harness.fc-view-harness-active"));
-        var heightTable = window.outerHeight - topbar - navbar  - formGroup - 180;
-        calendar.css("maxHeight", heightTable);
+    calendar.render();
+    var topbar = angular.element($(".navbar-default")).innerHeight();
+    var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();
+    var formGroup = angular.element($(".form-group")).innerHeight();
+    var calendar = angular.element($(".fc-view-harness.fc-view-harness-active"));
+    var heightTable = window.outerHeight - topbar - navbar  - formGroup - 180;
+    calendar.css("maxHeight", heightTable);
         
 	});
 
@@ -192,14 +192,23 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.pacientes = data;
   });
-  
+  angular.element($("#spinerContainer")).css("display", "block");
+  $http.get('../models/selectProfesionales.php').success(function(data){
+    angular.element($("#spinerContainer")).css("display", "none");
+    $scope.profesionales = data;
+  });
+  angular.element($("#spinerContainer")).css("display", "block");
+  $http.get('../models/selectServicios.php').success(function(data){
+    angular.element($("#spinerContainer")).css("display", "none");
+    $scope.servicios = data;
+  });
   $scope.cerrarModal = function(){
     close();
   };
 
   $scope.guardarConsulta = function(){
     var model = {
-      idPaciente: $scope.pacientes.idPaciente,
+      idPaciente: $scope.paciente,
       profesional: $scope.profesional,
       servicio: $scope.servicio,
       fecha: $scope.fecha,
@@ -207,15 +216,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       motivo : $scope.motivo,
       observacion : $scope.observacion
     };
-    // if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
-    //   || model.time == undefined || model.motivo == undefined){
-    //     $scope.msgTitle = 'Atención';
-    //     $scope.msgBody  = 'Debe completar los campos requeridos!';
-    //     $scope.msgType  = 'warning';
-    //     flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-    // }else{
-      
-    // }
+   
     if(new Date(model.fecha) < new Date(actualDate)){
       $scope.msgTitle = 'Atención';
       $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
@@ -225,8 +226,17 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       var actualDate = new Date();
       var hour = actualDate.getHours();
       var minute = actualDate.getMinutes();
+      var mes= actualDate.getMonth()+1;
+      var dia= actualDate.getDate();
+      var mes = (mes < 10) ? ("0" + mes) : mes;
+      var dia = (dia < 10) ? ("0" + dia) : dia;
+      var year = actualDate.getFullYear();
+      var hour = actualDate.getHours();
+      var minute = actualDate.getMinutes();
+      var minute = (minute < 10) ? ("0" + minute) : minute;
       actualTime = hour+":"+minute
-      if(model.time < actualTime){
+      actualDate = year+"-"+mes+"-"+dia;
+      if(model.time < actualTime && new Date(model.fecha) <= new Date(actualDate)){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
@@ -239,7 +249,25 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           $scope.msgType  = 'warning';
           flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
         }else{
-          console.log(model);
+          model.time += ":00";
+          angular.element($("#spinerContainer")).css("display", "block");
+          $http.post("../models/insertConsulta.php", model)
+          .success(function(res){
+            console.log(res)
+            angular.element($("#spinerContainer")).css("display", "none");
+            if(res == "error"){
+              $scope.msgTitle = 'Error';
+              $scope.msgBody  = 'Ha ocurrido un error!';
+              $scope.msgType  = 'error';
+              flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+            }else{
+              $scope.msgTitle = 'Exitoso';
+              $scope.msgBody  = res;
+              $scope.msgType  = 'success';
+              flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+              close(true);        
+            }
+          });
         }
       }
     }
