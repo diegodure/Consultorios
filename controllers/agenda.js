@@ -26,96 +26,62 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 .controller('AgendaCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
 
-    	var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
 
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          locale: 'es',
-          initialView: 'dayGridMonth',
-          dayMaxEventRows: true, // for all non-TimeGrid views
-          views: {
-          timeGrid: {
-            dayMaxEventRows: 4 // adjust to 6 only for timeGridWeek/timeGridDay
+    $scope.calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'es',
+      navLinks: true,
+      editable: true,
+      fixedWeekCount: false,
+      timeZone: 'UTC',
+      initialView: 'dayGridMonth',
+      dayMaxEventRows: true, // for all non-TimeGrid views
+      views: {
+        dayGridMonth: {
+          dayMaxEventRows: 4 // adjust to 6 only for timeGridWeek/timeGridDay
+        }
+      },
+      dateClick: function(info) {
+  			$scope.newDate(info);
+  	  },
+  	  eventClick: function(info) {
+         
+      },
+      eventMouseEnter: function(info) {
+    		            
+  	  },
+  	  eventMouseLeave: function(info) {
+  	
+      },
+      headerToolbar: {
+        left: 'prev,next, today, agregarConsulta',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+  	  },
+   
+  	  customButtons: {
+  			agregarConsulta: {
+  				text: 'Agregar consulta',
+          click: function() {
+            $scope.newDate();
           }
-        },
-        dateClick: function(info) {
-    			$scope.newDate(info);
-  		  },
-  		  eventClick: function(info) {
-           
-        },
-        eventMouseEnter: function(info) {
-      		            
-  		  },
-  		  eventMouseLeave: function(info) {
-			
-        },
-          headerToolbar: {
-		      left: 'prev,next, today, agregarConsulta',
-		      center: 'title',
-		      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    	  },
-       
-    	  customButtons: {
-    			agregarConsulta: {
-    				text: 'Agregar consulta',
-            click: function() {
-              $scope.newDate();
-            }
-    			},
-    			
-    		},
-    	  events: [
-      {
-        title: 'All Day Event',
-        start: '2021-07-01'
-      },
-      {
-        title: 'Long Event',
-        start: '2021-07-07',
-        end: '2021-07-10'
-      },
-      {
-        groupId: '999',
-        title: 'Repeating Event',
-        start: '2021-07-09T16:00:00'
-      },
-      {
-        groupId: '099',
-        title: 'Repeating Event2',
-        start: '2021-07-16T16:00:00'
-      },
-      {
-        title: 'Conference',
-        start: '2021-07-11',
-        end: '2021-07-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2022-07-12T10:30:00',
-        end: '2022-07-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2021-07-12T12:00:00'
-      },
-      {
-        title: 'Meeting',
-        start: '2022-07-12T14:30:00'
-      },
-      {
-        title: 'Birthday Party',
-        start: '2022-07-13T07:00:00'
-      },
-      {
-        title: 'Click for Google',
-        url: 'http://google.com/',
-        start: '2022-07-28'
-      }
-    ]
+  			},
+  			
+  		},
+  	  events: []
     });
 
-    calendar.render();
+    angular.element($("#spinerContainer")).css("display", "block");
+    $http.get('../models/agendConsult.php').success(function(data){
+      angular.element($("#spinerContainer")).css("display", "none");
+      $scope.consultas = data;
+      for(var i = 0; i < data.length; i++){
+        $scope.calendar.addEvent(data[i]);
+      }
+    });
+
+    $scope.calendar.render();
     var topbar = angular.element($(".navbar-default")).innerHeight();
     var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();
     var formGroup = angular.element($(".form-group")).innerHeight();
