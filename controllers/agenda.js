@@ -49,10 +49,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
          
       },
       eventMouseEnter: function(info) {
-    		            
+        var html = $scope.tooltipHTML(info);
+        angular.element($(info.el)).append(html);
   	  },
   	  eventMouseLeave: function(info) {
-  	
+        angular.element($("#"+info.event._def.defId)).remove();
       },
       headerToolbar: {
         left: 'prev,next, today, agregarConsulta',
@@ -90,6 +91,21 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     calendar.css("maxHeight", heightTable);
         
 	});
+
+  $scope.tooltipHTML = function(info){
+    var html = "";
+    html += '<div id='+info.event._def.defId+' class="tooltipConsult">';
+    html += '<div>';
+    html += '<span>Motivo: </span>';
+    html += '<span>'+info.event._def.extendedProps.Motivo+'</span>';
+    html += '</div>';
+    html += '<div>';
+    html += '<span>Profesional: </span>';
+    html += '<span>'+info.event._def.extendedProps.Nombres+'</span>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
 
   $scope.newDate = function(info){
     if(info){
