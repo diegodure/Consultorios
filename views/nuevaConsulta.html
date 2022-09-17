@@ -62,7 +62,7 @@
 		<br>
 		<br>
 		<div class="form-group">
-			<label for="nombre" class="col-sm-4 control-label">Hora (*)</label>
+			<label for="nombre" class="col-sm-4 control-label">Hora inicio(*)</label>
 			<div class="col-sm-8">
 				<div class="input-group"
 				     moment-picker="time"
@@ -73,6 +73,24 @@
 				    <input class="form-control"
 				           placeholder="Select a time"
 				           ng-model="time"
+				           ng-model-options="{ updateOn: 'blur' }">
+				</div>
+	        </div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="nombre" class="col-sm-4 control-label">Hora Fin</label>
+			<div class="col-sm-8">
+				<div class="input-group"
+				     moment-picker="time2"
+				     format="HH:mm">
+				    <span class="input-group-addon">
+				        <i class="octicon octicon-clock"></i>
+				    </span>
+				    <input class="form-control"
+				           placeholder="Select a time"
+				           ng-model="time2"
 				           ng-model-options="{ updateOn: 'blur' }">
 				</div>
 	        </div>

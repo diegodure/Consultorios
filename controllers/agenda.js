@@ -142,7 +142,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
             // y en result tienes el resultado.
             
         if(result){
-          // $scope.selectConsultas();
+          $scope.selectConsultas();
         }
         
       })
@@ -169,6 +169,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     $scope.fecha = actualDate;
   }
   $scope.time = actualTime;
+  $scope.time2 = actualTime;
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectPacientes.php').success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
@@ -182,8 +183,15 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectServicios.php').success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
+    var modalHeader = angular.element($(".modal-header")).innerHeight();
+    var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();
+    var modalFooter = angular.element($(".modal-footer")).innerHeight();
+    var modalBody = angular.element($(".modal-body"));
+    var contentHeight = window.outerHeight - modalHeader - modalFooter  - navbar - 250;
+    modalBody.css("maxHeight", contentHeight);
     $scope.servicios = data;
   });
+  
   $scope.cerrarModal = function(){
     close();
   };
@@ -194,10 +202,12 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       profesional: $scope.profesional,
       servicio: $scope.servicio,
       fecha: $scope.fecha,
-      time: $scope.time,
+      fecha2: $scope.fecha,
       motivo : $scope.motivo,
       observacion : $scope.observacion
     };
+    var time = $scope.time;
+    var time2 = $scope.time2;
    
     if(new Date(model.fecha) < new Date(actualDate)){
       $scope.msgTitle = 'Atención';
@@ -218,20 +228,23 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       var minute = (minute < 10) ? ("0" + minute) : minute;
       actualTime = hour+":"+minute
       actualDate = year+"-"+mes+"-"+dia;
-      if(model.time < actualTime && new Date(model.fecha) <= new Date(actualDate)){
+      if(time < actualTime && new Date(model.fecha) <= new Date(actualDate)){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
       }else{
         if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
-         || model.time == undefined || model.motivo == undefined || model.profesional == undefined){
+         || time == undefined || model.motivo == undefined || model.profesional == undefined){
           $scope.msgTitle = 'Atención';
           $scope.msgBody  = 'Debe completar los campos requeridos';
           $scope.msgType  = 'warning';
           flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
         }else{
-          model.time += ":00";
+          time += ":00";
+          time2 += ":00";
+          model.fecha += " "+time;
+          model.fecha2 += " "+time2;
           angular.element($("#spinerContainer")).css("display", "block");
           $http.post("../models/insertConsulta.php", model)
           .success(function(res){

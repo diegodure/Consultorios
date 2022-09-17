@@ -1,7 +1,7 @@
 <?php
 	include("../conect.php");
 
-	$sql = "select Consultas.Motivo, Consultas.Fecha as start, Pacientes.Nombres as title, Profesionales.Nombres from Consultas inner join Pacientes on Consultas.Pacientes_idPaciente=Pacientes.idPaciente inner join Profesionales on Consultas.Profesionales_idProfesionale=Profesionales.idProfesionale";
+	$sql = "select Consultas.Motivo, Consultas.Fecha as start, Consultas.Fecha2 as end,Consultas.color, Pacientes.Nombres as title, Profesionales.Nombres from Consultas inner join Pacientes on Consultas.Pacientes_idPaciente=Pacientes.idPaciente inner join Profesionales on Consultas.Profesionales_idProfesionale=Profesionales.idProfesionale";
 
 	$results = $con->query($sql);
 

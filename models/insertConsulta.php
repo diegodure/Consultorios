@@ -6,7 +6,11 @@
   $profesional = $data->{"profesional"};
   $servicio = $data->{"servicio"};
   $fecha = $data->{"fecha"};
-  $time = $data->{"time"};
+  if(!empty($data->{"fecha2"})){
+    $fecha2 = $data->{"fecha2"};
+  }else{
+    $fecha2 = "";
+  }
   $motivo = $data->{"motivo"};
   if(!empty($data->{"observacion"})){
     $observacion = $data->{"observacion"};
@@ -16,7 +20,7 @@
 
   include("../conect.php");
   
-        $sql = "insert into Consultas (idConsulta, Servicios_idServicio, Fecha, Hora, Pacientes_idPaciente, Motivo, Observacion, Estados_idEstado, Profesionales_idProfesionale) values (null, '$servicio', '$fecha', '$time', '$paciente', '$motivo', '$observacion', 1,'$profesional')";
+        $sql = "insert into Consultas (idConsulta, Servicios_idServicio, Fecha, Fecha2, Pacientes_idPaciente, Motivo, Observacion, color, Estados_idEstado, Profesionales_idProfesionale) values (null, '$servicio', '$fecha', '$fecha2', '$paciente', '$motivo', '$observacion', '#3788d8', 1,'$profesional')";
       $results = $con->query($sql);
 
   if(!$results){ 
