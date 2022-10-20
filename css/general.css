@@ -334,16 +334,16 @@ body{
 }
 
 .tooltipConsult{
+    word-break: break-all;
     position: absolute;
-    bottom: -120%;
-    width: 100%;
-    text-align: center;
+    top: 0px;
     color: #fff;
     border-radius: 3px;
-    padding: 6px 0;
+    padding: 6px 6px;
     background: black;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    right: -105%;
+    left: 125px;
+    min-width: 100%;
 }
 
 .tooltipConsult::after {
@@ -356,6 +356,9 @@ body{
   border-right: 7px solid rgba(0,0,0, 1);
   top: 10%;
   right: 100%;
+}
+.bolder{
+    font-weight: bolder;
 }
 
 

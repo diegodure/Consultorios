@@ -46,7 +46,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   			$scope.newDate(info);
   	  },
   	  eventClick: function(info) {
-         
+        $scope.showConsult(info);
       },
       eventMouseEnter: function(info) {
         var html = $scope.tooltipHTML(info);
@@ -96,15 +96,17 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     var html = "";
     html += '<div id='+info.event._def.defId+' class="tooltipConsult">';
     html += '<div>';
-    html += '<span>Motivo: </span>';
-    html += '<span>'+info.event._def.extendedProps.Motivo+'</span>';
+    html += '<span class="bolder">Motivo: </span>'+info.event._def.extendedProps.Motivo;
     html += '</div>';
     html += '<div>';
-    html += '<span>Profesional: </span>';
-    html += '<span>'+info.event._def.extendedProps.Nombres+'</span>';
+    html += '<span class="bolder">Profesional: </span>'+info.event._def.extendedProps.Nombres;
     html += '</div>';
     html += '</div>';
     return html;
+  }
+
+  $scope.showConsult = function(info){
+    $scope.openModal(info);
   }
 
   $scope.newDate = function(info){
@@ -132,10 +134,16 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   }
 
   $scope.openModal = function(info){
+    var isEdit = false;
+    if(info){
+      if(info.event != undefined){
+        isEdit = true;
+      }
+    }
     ModalService.showModal({
       templateUrl: "nuevaConsulta.html",
       controller: "consultaCtrl",
-      inputs: {info: info}
+      inputs: {info: info, isEdit:isEdit}
     }).then(function(modal){
       modal.close.then(function(result){
         // Una vez que el modal sea cerrado, la libreria invoca esta función
@@ -152,7 +160,28 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 
 })
 
-.controller('consultaCtrl', function($scope, close, $http, info,flash){
+.controller('consultaCtrl', function($scope, close, $http, info,isEdit,flash){
+  $scope.isEdit = false;
+  $scope.idPaciente;
+  if(isEdit){
+    console.log(info.event.extendedProps)
+    let claves = Object.keys(info.event.extendedProps);
+    for(let i = 0; i < claves.length; i++){
+      let clave = claves[i];
+      if(clave == 2 || clave == "2"){
+        var DateTimeSplit = info.event.extendedProps[clave].split(" "); 
+      }else if(clave == 3 || clave == "3"){
+        var DateTimeSplit2 = info.event.extendedProps[clave].split(" ");
+      }
+    }
+    $scope.modalTitle = "Editar consulta";
+    $scope.modalIcon = "glyphicon glyphicon-edit";
+    $scope.isEdit = true;
+    $scope.idConsulta = info.event.extendedProps.idConsulta;
+  }else{
+    $scope.modalTitle = "Nueva consulta";
+    $scope.modalIcon = "glyphicon glyphicon-plus";
+  }
   var actualDate = new Date();
   var mes= actualDate.getMonth()+1;
   var dia= actualDate.getDate();
@@ -170,15 +199,28 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   }
   $scope.time = actualTime;
   $scope.time2 = actualTime;
+  if($scope.isEdit){
+    $scope.fecha = DateTimeSplit[0];
+    $scope.time = DateTimeSplit[1];
+    $scope.time2 = DateTimeSplit2[1];
+    $scope.motivo = info.event.extendedProps.Motivo;
+    $scope.observacion = info.event.extendedProps.Observacion;
+  }
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectPacientes.php').success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.pacientes = data;
+    if($scope.isEdit){
+      $scope.paciente = {"Nombres":info.event.extendedProps.title,"idPaciente":info.event.extendedProps.idPaciente};
+    }
   });
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectProfesionales.php').success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.profesionales = data;
+    if($scope.isEdit){
+      $scope.profesional = {"Nombres":info.event.extendedProps.Nombres,"idProfesionale":info.event.extendedProps.idProfesionale};
+    }
   });
   angular.element($("#spinerContainer")).css("display", "block");
   $http.get('../models/selectServicios.php').success(function(data){
@@ -190,6 +232,9 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     var contentHeight = window.outerHeight - modalHeader - modalFooter  - navbar - 250;
     modalBody.css("maxHeight", contentHeight);
     $scope.servicios = data;
+    if($scope.isEdit){
+      $scope.servicio = {"Nombre":info.event.extendedProps.Motivo,"idServicio":info.event.extendedProps.idPaciente};
+    }
   });
   
   $scope.cerrarModal = function(){
@@ -197,15 +242,30 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   };
 
   $scope.guardarConsulta = function(){
-    var model = {
-      idPaciente: $scope.paciente,
-      profesional: $scope.profesional,
-      servicio: $scope.servicio,
-      fecha: $scope.fecha,
-      fecha2: $scope.fecha,
-      motivo : $scope.motivo,
-      observacion : $scope.observacion
-    };
+    var model = {};
+    if($scope.isEdit){
+      model = {
+        idConsulta: $scope.idConsulta,
+        idPaciente: $scope.paciente.idPaciente,
+        profesional: $scope.profesional.idProfesionale,
+        servicio: $scope.servicio.idServicio,
+        fecha: $scope.fecha,
+        fecha2: $scope.fecha,
+        motivo : $scope.motivo,
+        observacion : $scope.observacion
+      };
+    }else{
+      model = {
+        idPaciente: angular.element($("#paciente")).val(),
+        profesional: angular.element($("#profesional")).val(),
+        servicio: angular.element($("#servicio")).val(),
+        fecha: $scope.fecha,
+        fecha2: $scope.fecha,
+        motivo : $scope.motivo,
+        observacion : $scope.observacion
+      };
+    }
+    
     var time = $scope.time;
     var time2 = $scope.time2;
    
@@ -228,12 +288,18 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       var minute = (minute < 10) ? ("0" + minute) : minute;
       actualTime = hour+":"+minute
       actualDate = year+"-"+mes+"-"+dia;
-      if(time < actualTime && new Date(model.fecha) <= new Date(actualDate)){
+      if(new Date(model.fecha) < new Date(actualDate)){
+        $scope.msgTitle = 'Atención';
+        $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
+        $scope.msgType  = 'warning';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      }else if(time < actualTime){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
       }else{
+        console.log(model)
         if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
          || time == undefined || model.motivo == undefined || model.profesional == undefined){
           $scope.msgTitle = 'Atención';
@@ -246,23 +312,28 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           model.fecha += " "+time;
           model.fecha2 += " "+time2;
           angular.element($("#spinerContainer")).css("display", "block");
-          $http.post("../models/insertConsulta.php", model)
-          .success(function(res){
-            console.log(res)
+          if($scope.isEdit){
+            console.log(model);
             angular.element($("#spinerContainer")).css("display", "none");
-            if(res == "error"){
-              $scope.msgTitle = 'Error';
-              $scope.msgBody  = 'Ha ocurrido un error!';
-              $scope.msgType  = 'error';
-              flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-            }else{
-              $scope.msgTitle = 'Exitoso';
-              $scope.msgBody  = res;
-              $scope.msgType  = 'success';
-              flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-              close(true);        
-            }
-          });
+          }else{
+            $http.post("../models/insertConsulta.php", model)
+            .success(function(res){
+              console.log(res)
+              angular.element($("#spinerContainer")).css("display", "none");
+              if(res == "error"){
+                $scope.msgTitle = 'Error';
+                $scope.msgBody  = 'Ha ocurrido un error!';
+                $scope.msgType  = 'error';
+                flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+              }else{
+                $scope.msgTitle = 'Exitoso';
+                $scope.msgBody  = res;
+                $scope.msgType  = 'success';
+                flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+                close(true);        
+              }
+            });
+          }
         }
       }
     }

@@ -65,7 +65,7 @@
 									<!-- Filtro lowercase para letras en minusculas -->
 									<td>{{servicio.Descripcion | lowercase}}</td>
 							
-									<td>{{servicio.Costo}}</td>
+									<td>{{servicio.Costo | currency :'₲':0}}</td>
 
 									<td><span class="pull-right">
 									<a href="#" class='btn btn-default' title='Editar Paciente' ng-click="modificar(servicio)" data-toggle="modal"><i class="glyphicon glyphicon-edit"></i></a>

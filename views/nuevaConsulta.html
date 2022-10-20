@@ -2,7 +2,7 @@
 <div class="modal">
 	<div class="modal-header">
 			<button ng-click="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title"><i class='glyphicon glyphicon-edit'></i> Agregar nueva Consulta</h4>
+			<h4 class="modal-title"><i class={{modalIcon}}></i> {{modalTitle}}</h4>
 	</div>
 	<div class="modal-body">
 		<small style="font-weight: bolder;color: #286090;">Campos Obligatorios(*)</small>
@@ -10,11 +10,15 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Paciente (*)</label>
 			<div class="col-sm-8">
-				<select class="form-control" ng-model="paciente">
+				<select class="form-control" id="paciente" ng-model="paciente" ng-if="!isEdit">
 					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
       				<option ng-repeat="paciente in pacientes" value="{{paciente.idPaciente}}">
       					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
       				</option> <!-- interpolation -->
+				</select>
+				<select ng-if="isEdit" class="form-control"
+      				ng-options="paciente.Nombres for paciente in pacientes track by paciente.idPaciente"
+      				ng-model="paciente">
 				</select>
 			</div>
 		</div>
@@ -23,11 +27,15 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Profesional (*)</label>
 			<div class="col-sm-8">
-				<select class="form-control" ng-model="profesional">
+				<select class="form-control" id="profesional" ng-model="profesional" ng-if="!isEdit">
 					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
       				<option ng-repeat="profesional in profesionales" value="{{profesional.idProfesionale}}">
       					{{profesional.Nombres}} {{profesional.Apellidos}}
       				</option> <!-- interpolation -->
+				</select>
+				<select ng-if="isEdit" class="form-control"
+      				ng-options="profesional.Nombres for profesional in profesionales track by profesional.idProfesionale"
+      				ng-model="profesional">
 				</select>
 			</div>
 		</div>
@@ -36,11 +44,15 @@
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Servicio (*)</label>
 			<div class="col-sm-8">
-				<select class="form-control" ng-model="servicio">
+				<select class="form-control" id="servicio" ng-model="servicio" ng-if="!isEdit">
 					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
       				<option ng-repeat="servicio in servicios" value="{{servicio.idServicio}}">
       					{{servicio.Nombre}} - {{servicio.Costo}}
       				</option> <!-- interpolation -->
+				</select>
+				<select ng-if="isEdit" class="form-control"
+      				ng-options="servicio.Nombre for servicio in servicios track by servicio.idServicio"
+      				ng-model="servicio">
 				</select>
 			</div>
 		</div>

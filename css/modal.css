@@ -51,4 +51,34 @@
   height:100%;
   background: rgba(0, 0, 0, 0.5);
 }
+@media all and (min-width: 201px) and (max-width: 768px)
+{
+    .modal
+    {
+        top: top: 10%;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        margin-left: 0px;
+        width: auto;
+    }
+    .modal2{
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        margin-left: 0px;
+        width: auto;
+    }
+    .productoFactura{
+      max-height: 100% !important;
+    }
+    .modal-body{
+      height: auto !important;
+    }
+    .modalVentas{
+      top: 130% !important;
+      left: 10% !important;
+    }
+}
 

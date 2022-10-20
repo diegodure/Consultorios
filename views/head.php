@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<title><?php echo $title;?></title>
 	<!-- <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> -->
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
