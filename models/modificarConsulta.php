@@ -2,6 +2,7 @@
   $data = json_decode(file_get_contents("php://input"));
   include("../conect.php");
 
+  $idConsulta = $data->{"idConsulta"};
   $paciente = $data->{"idPaciente"};
   $profesional = $data->{"profesional"};
   $servicio = $data->{"servicio"};
@@ -17,16 +18,16 @@
   }else{
     $observacion = "";
   }
-  
-  $sql = "insert into Consultas (idConsulta, Servicios_idServicio, Fecha, Fecha2, Pacientes_idPaciente, Motivo, Observacion, color, Estados_idEstado, Profesionales_idProfesionale) values (null, '$servicio', '$fecha', '$fecha2', '$paciente', '$motivo', '$observacion', '#3788d8', '1','$profesional')";
+
+  $sql = "update Consultas set Servicios_idServicio='$servicio', Fecha='$fecha', Fecha2='$fecha2', Pacientes_idPaciente='$paciente', Motivo='$motivo', Observacion='$observacion', color='#3788d8', Estados_idEstado='1', Profesionales_idProfesionale='$profesional' where idConsulta='$idConsulta'";
   $results = $con->query($sql);
 
   if(!$results){ 
-      echo "error";
-    }
-    else{
-      echo "Consulta registrada correctamente!";
-    }
+    echo "error";
+  }
+  else{
+    echo "Consulta modificada correctamente!";
+  }
 
   $con->close();
 ?>

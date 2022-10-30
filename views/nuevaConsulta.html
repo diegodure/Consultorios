@@ -7,6 +7,17 @@
 	<div class="modal-body">
 		<small style="font-weight: bolder;color: #286090;">Campos Obligatorios(*)</small>
 		<br>
+		<div class="form-group" ng-if="isEdit">
+			<label for="nombre" class="col-sm-4 control-label">Estado</label>
+			<div class="col-sm-8">
+				<label><input type="radio" name="Estado" value="Pendiente">Pendiente</label>
+				<label><input type="radio" name="Estado" value="En proceso">En proceso</label>
+				<label><input type="radio" name="Estado" value="Terminado">Terminado</label>
+				<label><input type="radio" name="Estado" value="Cancelado">Cancelado</label>
+			</div>
+		</div>
+		<br ng-if="isEdit">
+		<br ng-if="isEdit">
 		<div class="form-group">
 			<label for="nombre" class="col-sm-4 control-label">Paciente (*)</label>
 			<div class="col-sm-8">
@@ -16,7 +27,7 @@
       					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" class="form-control"
+				<select ng-if="isEdit" id="paciente" class="form-control"
       				ng-options="paciente.Nombres for paciente in pacientes track by paciente.idPaciente"
       				ng-model="paciente">
 				</select>
@@ -33,7 +44,7 @@
       					{{profesional.Nombres}} {{profesional.Apellidos}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" class="form-control"
+				<select ng-if="isEdit" id="profesional" class="form-control"
       				ng-options="profesional.Nombres for profesional in profesionales track by profesional.idProfesionale"
       				ng-model="profesional">
 				</select>
@@ -50,7 +61,7 @@
       					{{servicio.Nombre}} - {{servicio.Costo}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" class="form-control"
+				<select ng-if="isEdit" id="servicio" class="form-control"
       				ng-options="servicio.Nombre for servicio in servicios track by servicio.idServicio"
       				ng-model="servicio">
 				</select>
