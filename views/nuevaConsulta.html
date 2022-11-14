@@ -10,10 +10,13 @@
 		<div class="form-group" ng-if="isEdit">
 			<label for="nombre" class="col-sm-4 control-label">Estado</label>
 			<div class="col-sm-8">
-				<label><input type="radio" name="Estado" value="Pendiente">Pendiente</label>
-				<label><input type="radio" name="Estado" value="En proceso">En proceso</label>
-				<label><input type="radio" name="Estado" value="Terminado">Terminado</label>
-				<label><input type="radio" name="Estado" value="Cancelado">Cancelado</label>
+				<label ng-repeat="state in states">
+					<input ng-if="state.idEstado == actualState" checked 
+					type="radio" name={{state.idEstado}} value={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)">
+					<input ng-if="state.idEstado != actualState" value={{state.idEstado}} name={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)"
+					type="radio">
+					{{state.Nombre}}
+				</label>
 			</div>
 		</div>
 		<br ng-if="isEdit">

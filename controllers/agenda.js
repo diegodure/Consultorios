@@ -25,10 +25,18 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 
 .controller('AgendaCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
+    var states;
 
     $scope.selectConsultas();
+    $scope.getStates();
         
 	});
+
+  $scope.getStates = function(){
+      $http.get('../models/selectStates.php').success(function(data){
+        states = data;
+      });
+  }
 
   $scope.selectConsultas = function(){
     var calendarEl = document.getElementById('calendar');
@@ -147,7 +155,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     ModalService.showModal({
       templateUrl: "nuevaConsulta.html",
       controller: "consultaCtrl",
-      inputs: {info: info, isEdit:isEdit}
+      inputs: {info: info, isEdit:isEdit,states:states}
     }).then(function(modal){
       modal.close.then(function(result){
         // Una vez que el modal sea cerrado, la libreria invoca esta función
@@ -164,10 +172,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 
 })
 
-.controller('consultaCtrl', function($scope, close, $http, info,isEdit,flash){
+.controller('consultaCtrl', function($scope, close, $http, info,isEdit,flash,states){
   $scope.isEdit = false;
   $scope.idPaciente;
   if(isEdit){
+    $scope.states = states;
     console.log(info.event.extendedProps)
     let claves = Object.keys(info.event.extendedProps);
     for(let i = 0; i < claves.length; i++){
@@ -182,6 +191,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     $scope.modalIcon = "glyphicon glyphicon-edit";
     $scope.isEdit = true;
     $scope.idConsulta = info.event.extendedProps.idConsulta;
+    $scope.actualState = info.event.extendedProps.idEstado;
   }else{
     $scope.modalTitle = "Nueva consulta";
     $scope.modalIcon = "glyphicon glyphicon-plus";
@@ -240,6 +250,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       $scope.servicio = {"Nombre":info.event.extendedProps.Motivo,"idServicio":info.event.extendedProps.idServicio};
     }
   });
+
+  $scope.checkedInputRadio = function(id){
+    angular.element($("input[type='radio']")).prop("checked",false);
+    angular.element($("input[name="+id+"]")).prop("checked",true);
+  }
   
   $scope.cerrarModal = function(){
     close();
@@ -256,7 +271,9 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         fecha: $scope.fecha,
         fecha2: $scope.fecha,
         motivo : $scope.motivo,
-        observacion : $scope.observacion
+        observacion : $scope.observacion,
+        estado: angular.element($("input[type='radio']:checked")).val(),
+        color: "#3788d8"
       };
     }else{
       model = {
@@ -318,6 +335,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           angular.element($("#spinerContainer")).css("display", "block");
           if($scope.isEdit){
             console.log(model);
+            if(model.estado == 3 || model.estado == "3"){
+              model.color = "#2f6010";
+            }else if(model.estado == 4 || model.estado == "4"){
+              model.color = "#601510";
+            }
             $http.post("../models/modificarConsulta.php", model)
             .success(function(res){
               angular.element($("#spinerContainer")).css("display", "none");

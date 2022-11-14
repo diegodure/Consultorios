@@ -7,6 +7,8 @@
   $profesional = $data->{"profesional"};
   $servicio = $data->{"servicio"};
   $fecha = $data->{"fecha"};
+  $estado = $data->{"estado"};
+  $color = $data->{"color"};
   if(!empty($data->{"fecha2"})){
     $fecha2 = $data->{"fecha2"};
   }else{
@@ -19,7 +21,7 @@
     $observacion = "";
   }
 
-  $sql = "update Consultas set Servicios_idServicio='$servicio', Fecha='$fecha', Fecha2='$fecha2', Pacientes_idPaciente='$paciente', Motivo='$motivo', Observacion='$observacion', color='#3788d8', Estados_idEstado='1', Profesionales_idProfesionale='$profesional' where idConsulta='$idConsulta'";
+  $sql = "update Consultas set Servicios_idServicio='$servicio', Fecha='$fecha', Fecha2='$fecha2', Pacientes_idPaciente='$paciente', Motivo='$motivo', Observacion='$observacion', color='$color', Estados_idEstado='$estado', Profesionales_idProfesionale='$profesional' where idConsulta='$idConsulta'";
   $results = $con->query($sql);
 
   if(!$results){ 
