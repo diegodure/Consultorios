@@ -344,6 +344,7 @@ body{
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     left: 125px;
     min-width: 100%;
+    z-index: 1000;
 }
 
 .tooltipConsult::after {
@@ -356,10 +357,15 @@ body{
   border-right: 7px solid rgba(0,0,0, 1);
   top: 10%;
   right: 100%;
+  z-index: 1000;
 }
 .bolder{
     font-weight: bolder;
 }
+.fc .fc-daygrid-event{
+    z-index: auto;
+}
+
 
 
 
