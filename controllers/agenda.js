@@ -68,6 +68,13 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       eventMouseLeave: function(info) {
         angular.element($("#"+info.event._def.defId)).remove();
       },
+      eventDrop: function(info) {
+        alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+
+        if (!confirm("Are you sure about this change?")) {
+          info.revert();
+        }
+      },
       headerToolbar: {
         left: 'prev,next, today, agregarConsulta',
         center: 'title',
@@ -309,7 +316,8 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       var minute = (minute < 10) ? ("0" + minute) : minute;
       actualTime = hour+":"+minute
       actualDate = year+"-"+mes+"-"+dia;
-      if(new Date(model.fecha) < new Date(actualDate)){
+      if(new Date(model.fecha) < new Date(actualDate) && 
+        angular.element($("input[type='radio']:checked")).val() == "1"){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
         $scope.msgType  = 'warning';
@@ -320,7 +328,6 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
       }else{
-        console.log(model)
         if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
          || time == undefined || model.motivo == undefined || model.profesional == undefined){
           $scope.msgTitle = 'Atención';
@@ -334,7 +341,6 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           model.fecha2 += " "+time2;
           angular.element($("#spinerContainer")).css("display", "block");
           if($scope.isEdit){
-            console.log(model);
             if(model.estado == 3 || model.estado == "3"){
               model.color = "#2f6010";
             }else if(model.estado == 4 || model.estado == "4"){
