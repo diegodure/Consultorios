@@ -38,10 +38,11 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 	  });
   	}
 
+  	angular.element($("#spinerContainer")).css("display", "block");
   	$scope.getConsultas = function(){
 	  $http.get('../models/agendConsult.php').success(function(data){
+	  	angular.element($("#spinerContainer")).css("display", "none");
 	  	$scope.consultas = data;
-	    console.log(data)
 	  });
   	}
 
@@ -70,9 +71,12 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 })
 
 .controller('cerrarConsultaCtrl', function($scope, close, $http, consulta,flash){
+	$scope.profesionalNombre = consulta.Nombres;
+	$scope.profesionalApellido = consulta.profesionalApellido;
 	$scope.pacienteNombre = consulta.title;
 	$scope.pacienteApellido = consulta.pacienteApellido;
 	$scope.motivoConsulta = consulta.Motivo;
+	$scope.observacionConsulta = consulta.Observacion;
 
 	$scope.cerrarModal = function(){
 		close();

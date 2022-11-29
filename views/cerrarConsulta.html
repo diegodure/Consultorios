@@ -7,12 +7,18 @@
 		<div class="modal-body">
 			
 			<div class="form-group">
+				<label for="nombre" class="col-sm-4 control-label">Profesional</label>
+				<div class="col-sm-8">
+					<label>{{profesionalNombre}} {{profesionalApellido}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
 				<label for="nombre" class="col-sm-4 control-label">Paciene</label>
 				<div class="col-sm-8">
 					<label>{{pacienteNombre}} {{pacienteApellido}}</label>
 				</div>
 			</div>
-			<br>
 			<br>
 			<div class="form-group">
 				<label for="nombre" class="col-sm-4 control-label">Motivo de Consulta</label>
@@ -21,9 +27,31 @@
 				</div>
 			</div>
 			<br>
+			<div class="form-group">
+				<label for="nombre" class="col-sm-4 control-label">Observación</label>
+				<div class="col-sm-8">
+					<label>{{observacionConsulta}}</label>
+				</div>
+			</div>
 			<br>
 
 			<small style="font-weight: bolder;color: #286090;">Campos Obligatorios(*)</small>
+			<br>
+
+			<div class="form-group">
+				<label for="nombre" class="col-sm-4 control-label">Receta (*)</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" id="exampleFormControlTextarea1" ng-model="receta" rows="3"></textarea>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="form-group">
+				<label for="nombre" class="col-sm-4 control-label">Indicaciones (*)</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" id="exampleFormControlTextarea1" ng-model="indicaciones" rows="3"></textarea>
+				</div>
+			</div>
 			<br>
 			
 		</div>
