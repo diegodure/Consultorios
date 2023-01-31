@@ -112,8 +112,16 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   }
 
   $scope.tooltipHTML = function(info){
+    var tooltipClass;
+    var libreArea = window.outerWidth - info.jsEvent.clientX;
+    var dividedArea = window.outerWidth / 2;
+    if(libreArea < dividedArea){
+      tooltipClass = "tooltipConsultLeft";
+    }else{
+      tooltipClass = "tooltipConsultRight";
+    }
     var html = "";
-    html += '<div id='+info.event._def.defId+' class="tooltipConsult">';
+    html += '<div id='+info.event._def.defId+' class="'+tooltipClass+'">';
     html += '<div>';
     html += '<span class="bolder">Motivo: </span>'+info.event._def.extendedProps.Motivo;
     html += '</div>';
@@ -232,7 +240,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.pacientes = data;
     if($scope.isEdit){
-      $scope.paciente = {"Nombres":info.event.extendedProps.title,"idPaciente":info.event.extendedProps.idPaciente};
+      angular.element($("#paciente option[value="+info.event.extendedProps.idPaciente+"]")).attr("selected","selected") 
     }
   });
   angular.element($("#spinerContainer")).css("display", "block");
@@ -240,7 +248,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.profesionales = data;
     if($scope.isEdit){
-      $scope.profesional = {"Nombres":info.event.extendedProps.Nombres,"idProfesionale":info.event.extendedProps.idProfesionale};
+      angular.element($("#profesional option[value="+info.event.extendedProps.idProfesionale+"]")).attr("selected","selected")
     }
   });
   angular.element($("#spinerContainer")).css("display", "block");
@@ -254,7 +262,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     modalBody.css("maxHeight", contentHeight);
     $scope.servicios = data;
     if($scope.isEdit){
-      $scope.servicio = {"Nombre":info.event.extendedProps.Motivo,"idServicio":info.event.extendedProps.idServicio};
+      angular.element($("#servicio option[value="+info.event.extendedProps.idServicio+"]")).attr("selected","selected")
     }
   });
 
@@ -322,7 +330,8 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         $scope.msgBody  = 'La fecha no puede ser menor a la fecha actual: '+actualDate;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-      }else if(time < actualTime && new Date(model.fecha) <= new Date(actualDate)){
+      }else if(time < actualTime && new Date(model.fecha) <= new Date(actualDate) && 
+        angular.element($("input[type='radio']:checked")).val() == "1"){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
@@ -341,9 +350,9 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           model.fecha2 += " "+time2;
           angular.element($("#spinerContainer")).css("display", "block");
           if($scope.isEdit){
-            if(model.estado == 3 || model.estado == "3"){
+            if(model.estado == 2 || model.estado == "2"){
               model.color = "#2f6010";
-            }else if(model.estado == 4 || model.estado == "4"){
+            }else if(model.estado == 3 || model.estado == "3"){
               model.color = "#601510";
             }
             $http.post("../models/modificarConsulta.php", model)

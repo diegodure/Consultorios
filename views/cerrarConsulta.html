@@ -4,30 +4,30 @@
 			<button ng-click="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<h4 class="modal-title"><i class='glyphicon glyphicon-edit'></i> Consulta</h4>
 		  </div>
-		<div class="modal-body">
+		<div class="modal-body modalWithScroll">
 			
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="nombre" class="col-sm-4 control-label">Profesional</label>
 				<div class="col-sm-8">
 					<label>{{profesionalNombre}} {{profesionalApellido}}</label>
 				</div>
 			</div>
 			<br>
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="nombre" class="col-sm-4 control-label">Paciene</label>
 				<div class="col-sm-8">
 					<label>{{pacienteNombre}} {{pacienteApellido}}</label>
 				</div>
 			</div>
 			<br>
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="nombre" class="col-sm-4 control-label">Motivo de Consulta</label>
 				<div class="col-sm-8">
 					<label>{{motivoConsulta}}</label>
 				</div>
 			</div>
 			<br>
-			<div class="form-group">
+			<div class="form-group row">
 				<label for="nombre" class="col-sm-4 control-label">Observación</label>
 				<div class="col-sm-8">
 					<label>{{observacionConsulta}}</label>
@@ -39,9 +39,9 @@
 			<br>
 
 			<div class="form-group">
-				<label for="nombre" class="col-sm-4 control-label">Receta (*)</label>
+				<label for="receta" class="col-sm-4 control-label">Receta</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" id="exampleFormControlTextarea1" ng-model="receta" rows="3"></textarea>
+					<textarea class="form-control" ng-model="receta" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
@@ -49,11 +49,31 @@
 			<div class="form-group">
 				<label for="nombre" class="col-sm-4 control-label">Indicaciones (*)</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" id="exampleFormControlTextarea1" ng-model="indicaciones" rows="3"></textarea>
+					<textarea class="form-control" ng-model="indicaciones" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
-			
+			<div class="form-group">
+				<label for="analisis" class="col-sm-4 control-label">Analisis</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" ng-model="analisis" rows="3"></textarea>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="observacion" class="col-sm-4 control-label">Observación</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" ng-model="observacion" rows="3"></textarea>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="nextCosult" class="col-sm-4 control-label">Siguiente consulta</label>
+				<div class="col-sm-8">
+					<input type="datetime" name="nextCosult" model="nextCosult">
+				</div>
+			</div>
+			<br>
 		</div>
 	<div class="modal-footer">
 		<button class="btn btn-default" ng-click="cerrarModal()">Cerrar</button>

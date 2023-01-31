@@ -30,9 +30,10 @@
       					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" id="paciente" class="form-control"
-      				ng-options="paciente.Nombres for paciente in pacientes track by paciente.idPaciente"
-      				ng-model="paciente">
+				<select ng-if="isEdit" id="paciente" class="form-control">
+      				<option ng-repeat="paciente in pacientes" value="{{paciente.idPaciente}}">
+      					{{paciente.Nombres}} {{paciente.Apellidos}} - {{paciente.Ci}}
+      				</option>
 				</select>
 			</div>
 		</div>
@@ -47,9 +48,10 @@
       					{{profesional.Nombres}} {{profesional.Apellidos}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" id="profesional" class="form-control"
-      				ng-options="profesional.Nombres for profesional in profesionales track by profesional.idProfesionale"
-      				ng-model="profesional">
+				<select ng-if="isEdit" id="profesional" class="form-control">
+					<option ng-repeat="profesional in profesionales" value="{{profesional.idProfesionale}}">
+      					{{profesional.Nombres}} {{profesional.Apellidos}}
+      				</option>
 				</select>
 			</div>
 		</div>
@@ -64,9 +66,10 @@
       					{{servicio.Nombre}} - {{servicio.Costo}}
       				</option> <!-- interpolation -->
 				</select>
-				<select ng-if="isEdit" id="servicio" class="form-control"
-      				ng-options="servicio.Nombre for servicio in servicios track by servicio.idServicio"
-      				ng-model="servicio">
+				<select ng-if="isEdit" id="servicio" class="form-control">
+					<option ng-repeat="servicio in servicios" value="{{servicio.idServicio}}">
+      					{{servicio.Nombre}} - {{servicio.Costo}}
+      				</option>
 				</select>
 			</div>
 		</div>
