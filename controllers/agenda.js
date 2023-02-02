@@ -69,11 +69,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         angular.element($("#"+info.event._def.defId)).remove();
       },
       eventDrop: function(info) {
-        alert(info.event.title + " was dropped on " + info.event.start.toISOString());
-
-        if (!confirm("Are you sure about this change?")) {
-          info.revert();
-        }
+        $scope.openModalDragConfirm(info);
       },
       headerToolbar: {
         left: 'prev,next, today, agregarConsulta',
@@ -184,6 +180,48 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     })
   }
 
+  $scope.openModalDragConfirm = function(info){
+    if(info.event._def.extendedProps.idEstado == "1" || info.event._def.extendedProps.idEstado == 1){
+      ModalService.showModal({
+        templateUrl: "modalDrag.html",
+        controller: "modalDragCtrl",
+        inputs: {info: info}
+      }).then(function(modal){
+        modal.close.then(function(result){
+          
+          if(result){
+            
+          }
+          
+        })
+      })
+    }else{
+      var consultState;
+      if(info.event._def.extendedProps.idEstado == "2" || info.event._def.extendedProps.idEstado == 2){
+        consultState = "Realizada";
+      }else if(info.event._def.extendedProps.idEstado == "3" || info.event._def.extendedProps.idEstado == 3){
+        consultState = "Cancelada";
+      }
+      $scope.msgTitle = 'Atención';
+      $scope.msgBody  = 'La consulta ya fue '+consultState;
+      $scope.msgType  = 'error';
+      flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      info.revert();
+    }
+  }
+})
+
+.controller('modalDragCtrl', function($scope, close, $http, info,flash){
+  console.log(info)
+  var dateToSplit = info.event.start.toISOString().split("T");
+  var dateToShow = dateToSplit[0];
+  var timeToShow = dateToSplit[1].split(".");
+  $scope.messageModal = "Confirma pasar la consulta a la fecha: "+dateToShow+" y hora: "+timeToShow[0]+" hs";
+
+  $scope.cancelDrag = function(){
+    close();
+    info.revert();
+  }
 
 })
 
