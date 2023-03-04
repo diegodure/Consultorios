@@ -41,9 +41,10 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   $scope.selectConsultas = function(){
     var calendarEl = document.getElementById('calendar');
 
-
+    var actualDate = new Date();
     $scope.calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'es',
+      initialDate:actualDate,
       navLinks: true,
       editable: true,
       fixedWeekCount: false,
@@ -181,18 +182,24 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   }
 
   $scope.openModalDragConfirm = function(info){
-    if(info.event._def.extendedProps.idEstado == "1" || info.event._def.extendedProps.idEstado == 1){
+    var dateToSplit = info.event.end.toISOString().split("T");
+    var dateToShow = dateToSplit[0];
+    var timeToShow = dateToSplit[1].split(".");
+    var dateToSum = new Date(dateToShow);
+    dateToSum.setDate(dateToSum.getDate() + 1);
+    if(new Date() > new Date(dateToSum)){
+      flash.pop({title: 'Atención', body: 'La hora y/o fecha debe ser mayor o igual que hoy', type: 'warning'});
+      info.revert();
+    }else if(info.event._def.extendedProps.idEstado == "1" || info.event._def.extendedProps.idEstado == 1){
       ModalService.showModal({
         templateUrl: "modalDrag.html",
         controller: "modalDragCtrl",
         inputs: {info: info}
       }).then(function(modal){
         modal.close.then(function(result){
-          
           if(result){
-            
+            $scope.selectConsultas();
           }
-          
         })
       })
     }else{
@@ -212,15 +219,42 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 })
 
 .controller('modalDragCtrl', function($scope, close, $http, info,flash){
-  console.log(info)
   var dateToSplit = info.event.start.toISOString().split("T");
   var dateToShow = dateToSplit[0];
   var timeToShow = dateToSplit[1].split(".");
+  
   $scope.messageModal = "Confirma pasar la consulta a la fecha: "+dateToShow+" y hora: "+timeToShow[0]+" hs";
 
   $scope.cancelDrag = function(){
     close();
     info.revert();
+  }
+
+  $scope.update = function(){
+    var dateToSplit2 = info.event.end.toISOString().split("T");
+    var timeSplited = dateToSplit2[1].split(".");
+    var model = {
+      idConsulta: info.event._def.extendedProps.idConsulta,
+      fecha: dateToShow+" "+timeToShow[0],
+      fecha2: dateToSplit2[0]+" "+timeSplited[0]
+    }
+    $http.post("../models/dragUpdate.php", model)
+    .success(function(res){
+      angular.element($("#spinerContainer")).css("display", "none");
+      if(res == "error"){
+        $scope.msgTitle = 'Error';
+        $scope.msgBody  = 'Ha ocurrido un error!';
+        $scope.msgType  = 'error';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      }else{
+        $scope.msgTitle = 'Exitoso';
+        $scope.msgBody  = res;
+        $scope.msgType  = 'success';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+        close(true);        
+      }
+    });
+    angular.element($("#spinerContainer")).css("display", "none");
   }
 
 })
@@ -230,7 +264,6 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   $scope.idPaciente;
   if(isEdit){
     $scope.states = states;
-    console.log(info.event.extendedProps)
     let claves = Object.keys(info.event.extendedProps);
     for(let i = 0; i < claves.length; i++){
       let clave = claves[i];
