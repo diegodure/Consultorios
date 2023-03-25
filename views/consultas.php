@@ -65,9 +65,9 @@
 									<td>{{consulta.start}}</td>
 									<td>
 										{{consulta.Estado}}
-										<span style="background: #3788d8" ng-if="consulta.idEstado == 1">Azul</span>
-										<span style="background: #2f6010" ng-if="consulta.idEstado == 2">Verde</span>
-										<span style="background: #601510" ng-if="consulta.idEstado == 3">Rojo</span>
+										<i style="color: #3788d8" ng-if="consulta.idEstado == 1" class="glyphicon glyphicon-record">
+										<i style="color: #2f6010" ng-if="consulta.idEstado == 2" class="glyphicon glyphicon-record">
+										<i style="color: #601510" ng-if="consulta.idEstado == 3" class="glyphicon glyphicon-record">
 									</td>
 									<td>{{consulta.Nombres}} {{consulta.profesionalApellido}}</td>
 

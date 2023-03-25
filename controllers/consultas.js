@@ -83,7 +83,22 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 	}
 
 	$scope.saveConsult = function(){
-
+    if($scope.indicaciones == "" || $scope.indicaciones == undefined || $scope.indicaciones == null){
+      $scope.msgTitle = 'Atención!';
+      $scope.msgBody  = 'Debe agregar por lo menos la indicación';
+      $scope.msgType  = 'warning';
+      flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+    }else{
+      model = {
+        receta: $scope.receta,
+        indicaciones: $scope.indicaciones,
+        analisis: $scope.analisis,
+        observacion: $scope.observacion,
+        nextCosult: $scope.nextCosult
+      }
+      console.log(model);
+      console.log(consulta)
+    }
 	}
 })
 
