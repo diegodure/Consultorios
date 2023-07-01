@@ -41,35 +41,45 @@
 			<div class="form-group row">
 				<label for="receta" class="col-sm-4 control-label">Receta</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" ng-model="receta" rows="3"></textarea>
+					<textarea class="form-control displayInput" ng-model="receta" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="form-group row">
 				<label for="nombre" class="col-sm-4 control-label">Indicaciones (*)</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" ng-model="indicaciones" rows="3"></textarea>
+					<textarea class="form-control displayInput" ng-model="indicaciones" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="form-group row">
 				<label for="analisis" class="col-sm-4 control-label">Analisis</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" ng-model="analisis" rows="3"></textarea>
+					<textarea class="form-control displayInput" ng-model="analisis" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="form-group row">
 				<label for="observacion" class="col-sm-4 control-label">Observación</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" ng-model="observacion" rows="3"></textarea>
+					<textarea class="form-control displayInput" ng-model="observacion" rows="3"></textarea>
 				</div>
 			</div>
 			<br>
 			<div class="form-group row">
 				<label for="nextCosult" class="col-sm-4 control-label">Siguiente consulta</label>
 				<div class="col-sm-8">
-					<input type="datetime" name="nextCosult" model="nextCosult">
+					<div class="input-group displayInput"
+					     moment-picker="nextCosult"
+					     format="YYYY-MM-DD HH:mm">
+					    <span class="input-group-addon">
+					        <i class="octicon octicon-clock"></i>
+					    </span>
+					    <input class="form-control"
+					           placeholder="Siguiente consulta"
+					           ng-model="nextCosult"
+					           ng-model-options="{ updateOn: 'blur' }">
+					</div>
 				</div>
 			</div>
 		</div>

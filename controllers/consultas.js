@@ -1,4 +1,4 @@
-angular.module('consultas',['angularModalService', '720kb.datepicker'])
+angular.module('consultas',['angularModalService', '720kb.datepicker','moment-picker'])
 
 .factory("flash", function($rootScope) {
 
@@ -40,10 +40,10 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 
   	angular.element($("#spinerContainer")).css("display", "block");
   	$scope.getConsultas = function(){
-	  $http.get('../models/agendConsult.php').success(function(data){
-	  	angular.element($("#spinerContainer")).css("display", "none");
-	  	$scope.consultas = data;
-	  });
+  	  $http.get('../models/agendConsult.php').success(function(data){
+  	  	angular.element($("#spinerContainer")).css("display", "none");
+  	  	$scope.consultas = data;
+  	  });
   	}
 
   	$scope.searchConsult = function(){
@@ -51,7 +51,6 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
   	}
 
   	$scope.showConsult = function(consulta){
-  		console.log(consulta)
   		// Debes proveer un controlador y una plantilla.
 		ModalService.showModal({
 			templateUrl: "cerrarConsulta.html",
@@ -71,12 +70,39 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 })
 
 .controller('cerrarConsultaCtrl', function($scope, close, $http, consulta,flash){
+  console.log(consulta)
 	$scope.profesionalNombre = consulta.Nombres;
 	$scope.profesionalApellido = consulta.profesionalApellido;
 	$scope.pacienteNombre = consulta.title;
 	$scope.pacienteApellido = consulta.pacienteApellido;
 	$scope.motivoConsulta = consulta.Motivo;
 	$scope.observacionConsulta = consulta.Observacion;
+
+  if(consulta.idEstado == "2" || consulta.idEstado == 2){
+    var model = {
+      idConsult: consulta.idConsulta,
+      idState: consulta.idEstado
+    }
+    angular.element($("#spinerContainer")).css("display", "block");
+    $http.post("../models/getConsultResult.php", model)
+    .success(function(data){
+      angular.element($("#spinerContainer")).css("display", "none");
+      if(data == "error"){
+          $scope.msgTitle = 'Error';
+            $scope.msgBody  = 'Ha ocurrido un error!';
+            $scope.msgType  = 'error';
+          flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      }else{
+          console.log(data)
+          $scope.receta = data[0].Receta;
+          $scope.indicaciones = data[0].Indicaciones;
+          $scope.analisis = data[0].Analisis;
+          $scope.observacion = data[0].Observacion;
+          $scope.nextCosult = data[0].Siguiente_Consulta;
+          angular.element($(".displayInput")).css("pointer-events", "none");
+      }
+    });
+  }
 
 	$scope.cerrarModal = function(){
 		close();
@@ -85,19 +111,35 @@ angular.module('consultas',['angularModalService', '720kb.datepicker'])
 	$scope.saveConsult = function(){
     if($scope.indicaciones == "" || $scope.indicaciones == undefined || $scope.indicaciones == null){
       $scope.msgTitle = 'Atención!';
-      $scope.msgBody  = 'Debe agregar por lo menos la indicación';
+      $scope.msgBody  = 'Debe agregar por lo menos las indicaciones';
       $scope.msgType  = 'warning';
       flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
     }else{
       model = {
+        idConsulta: consulta.idConsulta,
         receta: $scope.receta,
         indicaciones: $scope.indicaciones,
         analisis: $scope.analisis,
         observacion: $scope.observacion,
-        nextCosult: $scope.nextCosult
+        nextCosult: "2023-06-09 18:00:00"
       }
-      console.log(model);
-      console.log(consulta)
+      angular.element($("#spinerContainer")).css("display", "block");
+      $http.post('../models/closeConsult.php',model).success(function(res){
+        angular.element($("#spinerContainer")).css("display", "none");
+        console.log(res)
+        if(res == "error"){
+          $scope.msgTitle = 'Error';
+          $scope.msgBody  = 'Ha ocurrido un error!';
+          $scope.msgType  = 'error';
+          flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+        }else{
+          $scope.msgTitle = 'Exitoso';
+          $scope.msgBody  = res;
+          $scope.msgType  = 'success';
+          flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+          close(true);        
+        }
+      });
     }
 	}
 })
