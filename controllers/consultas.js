@@ -78,7 +78,10 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 	$scope.motivoConsulta = consulta.Motivo;
 	$scope.observacionConsulta = consulta.Observacion;
 
+  $scope.printButton = false;
+
   if(consulta.idEstado == "2" || consulta.idEstado == 2){
+    $scope.printButton = true;
     var model = {
       idConsult: consulta.idConsulta,
       idState: consulta.idEstado
@@ -93,7 +96,6 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
             $scope.msgType  = 'error';
           flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
       }else{
-          console.log(data)
           $scope.receta = data[0].Receta;
           $scope.indicaciones = data[0].Indicaciones;
           $scope.analisis = data[0].Analisis;
@@ -121,12 +123,11 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
         indicaciones: $scope.indicaciones,
         analisis: $scope.analisis,
         observacion: $scope.observacion,
-        nextCosult: "2023-06-09 18:00:00"
+        nextCosult: $scope.nextCosult
       }
       angular.element($("#spinerContainer")).css("display", "block");
       $http.post('../models/closeConsult.php',model).success(function(res){
         angular.element($("#spinerContainer")).css("display", "none");
-        console.log(res)
         if(res == "error"){
           $scope.msgTitle = 'Error';
           $scope.msgBody  = 'Ha ocurrido un error!';
@@ -142,6 +143,115 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
       });
     }
 	}
+
+  $scope.printConsult = function(){
+    console.log(consulta)
+    html2canvas(document.getElementById('consultToPrint'),{
+      onrendered: function(canvas){
+        var data = canvas.toDataURL();
+        var docDefinition = {
+          pageSize: 'A5',
+          content: [
+            {
+              text: 'CONSULTA-'+consulta.idConsulta+'',
+              style: 'header'
+            },
+            '\n',
+            {
+              
+              columns: [
+                {
+                  text: [
+                    {text: 'Paciente: ',
+                    fontSize: 13,bold: true},
+                    {text: ''+consulta.title+' '+consulta.pacienteApellido,
+                    fontSize: 13,bold: false}
+                  ]
+                },
+                {
+                  text: [
+                    {text: 'Fecha Hora: ',
+                    fontSize: 11,bold: true},
+                    {text: ''+consulta.end,
+                    fontSize: 11,bold: false}
+                  ]
+                }
+              ]
+            },
+            '\n',
+            {text:[
+              {text: 'Profesional: ',
+              fontSize: 13,bold: true},
+              {text: ''+consulta.Nombres+' '+consulta.profesionalApellido,
+              fontSize: 13,bold: false}
+            ]},
+            '\n',
+            {text:[
+              {text: 'Motivo de consulta: ',
+              fontSize: 13,bold: true},
+              {text: ''+consulta.Motivo,
+              fontSize: 12,bold: false}
+            ]},
+            '\n',
+            {text:[
+              {text: 'Observacion: ',
+              fontSize: 13,bold: true},
+              {text: ''+consulta.Observacion,
+              fontSize: 13,bold: false}
+            ]},
+            '\n',
+            {text: 'Recetas', style: 'header'},
+            {
+              ol: [
+                $scope.receta,
+                
+              ]
+            },
+            '\n',
+            {text: 'Indicaciones', style: 'header'},
+            {
+              ol: [
+                $scope.indicaciones,
+                
+              ]
+            },
+            '\n',
+            {text: 'Análisis', style: 'header'},
+            {
+              ol: [
+                $scope.analisis,
+                
+              ]
+            },
+            '\n',
+            {text: 'Observaciones', style: 'header'},
+            {
+              ol: [
+                $scope.observacion,
+                
+              ]
+            },
+            '\n',
+            {text:[
+              {text: 'Siguiente consulta: ',
+              fontSize: 14,bold: true},
+              {text: ''+$scope.nextCosult,
+              fontSize: 13,bold: false}
+            ]}
+          ],
+            styles:{
+              header: {
+                fontSize: 16,
+                bold: true,
+                alignment: 'center'
+              }
+            } 
+        };
+        pdfMake.createPdf(docDefinition).open();
+        //pdfMake.createPdf(docDefinition).download("consult.pdf");
+      }
+    });
+  }
 })
 
 

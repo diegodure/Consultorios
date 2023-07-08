@@ -29,6 +29,7 @@
     <script type="text/javascript" src="../controllers/agenda.js"></script>
     <script type="text/javascript" src="../controllers/servicios.js"></script>
     <script type="text/javascript" src="../controllers/profesionales.js"></script>
+    <script type="text/javascript" src="../controllers/usuarios.js"></script>
     
 
 

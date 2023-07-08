@@ -22,7 +22,7 @@
         <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-list-alt'></i> Consultas</a></li>
         <li class=""><a href="profesionales.php"><i class='glyphicon glyphicon-briefcase'></i> Profesionales</a></li>
         <li class=""><a href="servicios.php"><i class='glyphicon glyphicon-tag'></i> Servicios</a></li>
-		    <li class=""><a href="consultas.php"><i class='glyphicon glyphicon-user'></i> Usuarios</a></li>
+		    <li class=""><a href="usuarios.php"><i class='glyphicon glyphicon-user'></i> Usuarios</a></li>
 
        </ul>
       <ul class="nav navbar-nav navbar-right">
