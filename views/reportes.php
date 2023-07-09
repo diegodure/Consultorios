@@ -1,42 +1,39 @@
   <?php
-  	session_start();
+    session_start();
     include("../conect.php");
-
+    
     if(isset($_SESSION['user'])){
-    	$title = "Facturas | Simple Invoice"
+        $title = "Impulse"
   ?>
   <!DOCTYPE html>
 <html>
 
 <?php
-	include("head.php");
+    include("head.php");
 ?>
 
-<body ng-app="reportes" >
+<body ng-app="reportes" style="overflow-x: hidden;overflow-y: auto;">
 <?php
-	include("navbar.php");
+    include("navbar.php");
 ?>
 
 <div class="container">
-
-
-    <div ng-controller="ReportesCtrl" class="container">
+    <div ng-controller="reportesCtrl" class="container">
         <div class="panel panel-info">
             <div class="panel-heading">
-
-        	    <h4><i class='glyphicon glyphicon-search'></i> Ventas</h4>
-
-        	</div>
+                
+                <h4><i class='glyphicon glyphicon-search'></i> Buscar Balance</h4>
+            </div>
             <div class="panel-body">
-                <form class="form-horizontal" role="form">
+                <div class="row">
+                        
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <label for="q" class="col-md-4 control-label">Fecha desde</label>
+                        <div class="col-md-6">
 
-            	    <div class="form-group row">
-            		    <label for="q" class="col-md-4 control-label">Buscar Venta</label>
-            		    <div class="col-md-5">
-
-                            <datepicker ng-click="calendar(date)" date-format="yyyy-MM-dd" selector="form-control" button-prev-title="previous month" button-next-title="next month">
+                            <datepicker ng-click="calendar()" date-format="yyyy-MM-dd" selector="form-control" button-prev-title="previous month" button-next-title="next month">
                                 <div class="input-group">
-                                    <input class="form-control" placeholder="Fecha de la Venta" ng-model="date" style="cursor: pointer"/>
+                                    <input class="form-control" placeholder="Fecha de la Venta" ng-model="date1" style="cursor: pointer"/>
                                     <span class="input-group-addon">
                                     <i class="fa fa-lg fa-calendar"></i>
                                     </span>
@@ -45,35 +42,88 @@
 
 
                         </div>
-                        <div class="col-md-5" ng-repeat="venta in ventas">
-                            <li style="cursor: pointer" ng-click="factura(venta)">{{venta.Fecha}}</li>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <label for="q" class="col-md-4 control-label">Fecha hasta</label>
+                        <div class="col-md-6">
+
+                            <datepicker ng-click="calendar()" date-format="yyyy-MM-dd" selector="form-control" button-prev-title="previous month" button-next-title="next month">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Fecha de la Venta" ng-model="date2" style="cursor: pointer"/>
+                                    <span class="input-group-addon">
+                                    <i class="fa fa-lg fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </datepicker>
+
+
                         </div>
-                        <div class="col-md-5">
-                            <table id="tblFactura" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <button type='button' class="btn btn-info" ng-click="report(date1,date2)"><span class="glyphicon glyphicon-plus"></span> Buscar</button>
+                    <button type='button' ng-show="etiquetas.length > 0" class="btn btn-info" ng-click="downloadReport()"><span class="glyphicon glyphicon-download-alt"></span> Descargar</button>
+
+                    </div>
+                </div>
+
+                <div class="row" id="reportContainer">
+                    <div class="col col-md-12 col-lg-12 col-xl-12">
+                        <h4 style="text-align: center;">Consultas mas realizadas</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr class="info">
+                                    <th>Nombre del Servicio</th>
+                                    <th>Costo del servicio</th>
+                                    <th>Profesional</th>
+                                    <th>Motivo</th>
+                                    <th>Cantidad de Consultas</th>
+                                    <th>Total de Consultas</th>
                                 </tr>
-                                <tbody>
-                                    <tr>
-                                        <td>{{fac.Fecha}}</td>
-                                        <td>{{fac.Total}}</td>
-                                    </tr>
-                                </tbody>
+                                <tr ng-repeat="maxP in maxProducts">
+                                    <td>{{maxP.Servicio_nombre}}</td>
+                                    <td>{{maxP.Servicio_costo}}</td>
+                                    <td>{{maxP.Profesional_nombre}} {{maxP.Profesional_apellido}}</td>
+                                    <td>{{maxP.Motivo}}</td>
+                                    <td>{{maxP.Cantidad_consulta}}</td>
+                                    <td>{{maxP.Total_consulta}}</td>
+                                </tr>
                             </table>
                         </div>
-            		</div>
-            	</form>
-            </div>
+                    </div>
+                    <div class="col col-md-12 col-lg-12 col-xl-12">
+                        <canvas id="mylineGraph"></canvas>
+                    </div>
+                    <div class="col col-md-12 col-lg-12 col-xl-12" >
+                        
+                        <canvas id="barChart" class="chart chart-bar" chart-colors="colors" chart-data="datos" chart-labels="etiquetas" chart-series="series" chart-legend="options"></canvas>
+                    </div>
+                    <div class="col col-md-12 col-lg-12 col-xl-12" >
+                     <canvas id="pie" class="chart chart-pie" chart-options="options" chart-colors="colors" chart-data="data" chart-labels="labels"></canvas>
+                      
+                    </div>
+                </div>
+                    
+                </div>
 
+            </div>
         </div>
-	</div>
+    </div>
 </div>
+<!-- <div ng-controller="ctrl">
+
+        <button ng-click="mostrarModal()">Ver Modal</button>
+        <br>{{ resultadoModal }}
+
+    </div> -->
 <br>
 <br>
 <br>
 <?php
-	include("footer.php");
+    include("footer.php");
 ?>
 <!-- <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
@@ -81,8 +131,9 @@
 </body>
 </html>
 <?php
-	 }else{
-	 	echo '<script> alert("User o password incorrectos");</script>';
+
+     }else{
+        echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';
     }
 
