@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <button type='button' class="btn btn-info" ng-click="report(date1,date2)"><span class="glyphicon glyphicon-plus"></span> Buscar</button>
+                    <button type='button' class="btn btn-info" ng-click="createReport(date1,date2)"><span class="glyphicon glyphicon-plus"></span> Buscar</button>
                     <button type='button' ng-show="etiquetas.length > 0" class="btn btn-info" ng-click="downloadReport()"><span class="glyphicon glyphicon-download-alt"></span> Descargar</button>
 
                     </div>
@@ -72,7 +72,7 @@
 
                 <div class="row" id="reportContainer">
                     <div class="col col-md-12 col-lg-12 col-xl-12">
-                        <h4 style="text-align: center;">Consultas mas realizadas</h4>
+                        <h4 style="text-align: center;">Consultas realizadas {{totalConsultasRealizadas}}</h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr class="info">
@@ -80,18 +80,15 @@
                                     <th>Costo del servicio</th>
                                     <th>Profesional</th>
                                     <th>Motivo</th>
-                                    <th>Cantidad de Consultas</th>
-                                    <th>Total de Consultas</th>
                                 </tr>
                                 <tr ng-repeat="maxP in maxProducts">
                                     <td>{{maxP.Servicio_nombre}}</td>
-                                    <td>{{maxP.Servicio_costo}}</td>
+                                    <td>{{maxP.Servicio_costo | currency :'₲':0}}</td>
                                     <td>{{maxP.Profesional_nombre}} {{maxP.Profesional_apellido}}</td>
-                                    <td>{{maxP.Motivo}}</td>
-                                    <td>{{maxP.Cantidad_consulta}}</td>
-                                    <td>{{maxP.Total_consulta}}</td>
+                                    <td>{{maxP.Motivo}}{{totalConsultas(maxP.Servicio_costo)}}</td>
                                 </tr>
                             </table>
+                            Total: {{totalC | currency :'₲':0}}
                         </div>
                     </div>
                     <div class="col col-md-12 col-lg-12 col-xl-12">

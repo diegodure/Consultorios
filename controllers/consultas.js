@@ -66,6 +66,10 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 			})
 		})
   	}
+    $scope.totalConsult = 0;
+    $scope.sumConsult = function(numForSum){
+      return $scope.totalConsult = $scope.totalConsult + numForSum;
+    }
 
 })
 

@@ -71,8 +71,16 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
       }
     });
   }
+  var sumToTotal = 0;
+  $scope.totalConsultas = function(costo){
+    costo = parseInt(costo);
+    console.log(costo)
+    $scope.totalC = sumToTotal + costo;
+  }
 
   $scope.createReport = function(date1, date2){
+    sumToTotal = 0;
+    $scope.totalConsultasRealizadas = 0;
     var line = document.getElementById("mylineGraph").getContext("2d");
     var barChart = document.getElementById("barChart")
     $scope.datos = [];
@@ -88,8 +96,8 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
     resBalance = 0;
     dateBackup = 0;
     var fechas = {
-      fecha1: date1,
-      fecha2: date2
+      fecha1: date1+" 00:00:00",
+      fecha2: date2+" 00:00:00"
     };
     if (fechas.fecha1 == undefined || fechas.fecha2 == undefined) {
       $scope.msgTitle = 'Atención';
@@ -97,7 +105,6 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
       $scope.msgType  = 'warning';
       flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
     }else{
-      console.log(fechas)
       angular.element($("#spinerContainer")).css("display", "block");
       $http.post("../models/maxService.php", fechas)
       .success(function(data){
@@ -110,6 +117,7 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
             flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
         }else{
             $scope.maxProducts = data;
+            $scope.totalConsultasRealizadas = data.length;
         }
       });
       // $http.post('../models/selectVenta.php', fechas).success(function (data) {
