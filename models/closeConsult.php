@@ -32,7 +32,7 @@
   if(!$result){ 
     echo "error";
   }else{
-    $sql2 = "update Consultas set Estados_idEstado='2' where idConsulta='$idConsulta'";
+    $sql2 = "update Consultas set Estados_idEstado='2', color='#2f6010' where idConsulta='$idConsulta'";
     $result2 = $con->query($sql2); 
     if(!$result){ 
       echo "error";

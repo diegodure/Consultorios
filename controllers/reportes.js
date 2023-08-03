@@ -38,7 +38,7 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
       $scope.date2 = actualDate;
   });
 
-	$scope.labels = ["Compras", "Ventas", "Ganancias"];
+	$scope.labels = ["Cancelado", "Realizado", "Pendiente"];
   	$scope.data = [];
   	var compras = [];
   	var ventas = [];
@@ -86,10 +86,11 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
     $scope.datos = [];
     $scope.data = [];
     $scope.etiquetas = [];
-    $scope.colors = ['#ff0000','#3498DB','#717984','#F1C40F'];
+    $scope.colors = ['#601510','#2f6010','#3788d8'];
     $scope.options = {legend:{display:true,position:"top"}}
-    compras = [];
-    ventas = [];
+    cancelado = [];
+    realizado = [];
+    pendiente = [];
 
     sumCompra, sumTotalCompra = 0;
     sumVenta, sumTotalVenta = 0; 
@@ -109,17 +110,31 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
       $http.post("../models/maxService.php", fechas)
       .success(function(data){
         angular.element($("#spinerContainer")).css("display", "none");
-        console.log(data)
         if(data == "error"){
-            $scope.msgTitle = 'Error';
-              $scope.msgBody  = 'Ha ocurrido un error!';
-              $scope.msgType  = 'error';
-            flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+          $scope.msgTitle = 'Error';
+          $scope.msgBody  = 'Ha ocurrido un error!';
+          $scope.msgType  = 'error';
+          flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
         }else{
-            $scope.maxProducts = data;
-            $scope.totalConsultasRealizadas = data.length;
+          $scope.maxProducts = data;
+          $scope.totalConsultasRealizadas = data.length;
+          $scope.consultForGraphic = data[data.length-1];
+          for (var i = 0; $scope.consultForGraphic.length > i; i++) {
+            if($scope.consultForGraphic[i].idEstado == "2" || $scope.consultForGraphic[i].idEstado == 2){
+              realizado.push($scope.consultForGraphic[i]);
+            }else if($scope.consultForGraphic[i].idEstado == "1" || $scope.consultForGraphic[i].idEstado == 1){
+              pendiente.push($scope.consultForGraphic[i]);
+            }else{
+              cancelado.push($scope.consultForGraphic[i]);
+            }
+          }
+          $scope.data.push(cancelado.length,realizado.length,pendiente.length);
+          var mylineGraph = new Chart(line, {
+
+          });
         }
       });
+
       // $http.post('../models/selectVenta.php', fechas).success(function (data) {
       //   $scope.ventas = data;
       //   var num = 0;

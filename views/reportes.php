@@ -72,7 +72,7 @@
 
                 <div class="row" id="reportContainer">
                     <div class="col col-md-12 col-lg-12 col-xl-12">
-                        <h4 style="text-align: center;">Consultas realizadas {{totalConsultasRealizadas}}</h4>
+                        <h4 style="text-align: center;">Consultas realizadas {{totalConsultasRealizadas-1}}</h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <tr class="info">
