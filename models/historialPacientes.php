@@ -6,7 +6,7 @@
 	
 	include("../conect.php");
 
-	$sql = "select * from Historial where Pacientes_idPaciente='$id'";
+	$sql = "select Resultado.Fecha, Resultado.Observacion, Resultado.Indicaciones, Consultas.idConsulta, Consultas.Motivo from Resultado inner join Consultas on Resultado.Consultas_idConsulta=Consultas.idConsulta where Consultas.Pacientes_idPaciente='$id'";
 	$results = $con->query($sql);
 
 	$rawdata = array();

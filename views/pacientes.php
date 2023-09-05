@@ -40,7 +40,7 @@
 									<input type="text" class="form-control" id="q" placeholder="Buscar Paciente" ng-model="buscar.$">
 								</div>
 								<div class="col-md-3">
-									<button type="button" class="btn btn-default" ng-click="modificar()">
+									<button type="button" class="btn btn-default">
 									<span class="glyphicon glyphicon-search"></span> Buscar</button>
 									<span></span>
 								</div>
@@ -73,7 +73,7 @@
 
 									<td><span class="pull-right">
 									<a href="#" class='btn btn-default' title='Editar Paciente' ng-click="modificar(paciente)" data-toggle="modal"><i class="glyphicon glyphicon-edit"></i></a>
-									<a href="#" class='btn btn-default' title='Ver historial' ng-click="eliminar(paciente)" data-toggle="modal"><i class="glyphicon glyphicon-list-alt"></i> </a></span></td>
+									<a href="#" class='btn btn-default' title='Ver historial' ng-click="historial(paciente)" data-toggle="modal"><i class="glyphicon glyphicon-list-alt"></i> </a></span></td>
 								</tr>
 								
 							</table>

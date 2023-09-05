@@ -1,0 +1,41 @@
+<div class="overlay2">
+<div class="modal2">
+	<div class="modal-header">
+			<button ng-click="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title"><i class='glyphicon glyphicon-plus'></i> Historial del Paciente</h4>
+		  </div>
+		<div class="modal-body">
+
+			
+
+			<br>
+			<div ng-repeat="his in historial track by $index">
+				<div ng-click="showHistoric(his.idConsulta)" style="text-align: center;font-weight: bolder;cursor: pointer;">
+					{{his.Fecha}}
+				</div>
+				<div id="historic-{{his.idConsulta}}" style="display: none;">
+					<table class="table">
+						<tr>
+							<td>Motivo:</td>
+							<td>{{his.Motivo}}</td>
+						</tr>
+						<tr>
+							<td>Observación:</td>
+							<td>{{his.Observacion}}</td>
+						</tr>
+						<tr>
+							<td>Indicaciones:</td>
+							<td>{{his.Indicaciones}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<br>
+			<br>
+		</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="cerrarModal()">Cerrar</button>
+	</div>
+</div>
+</div>

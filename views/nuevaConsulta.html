@@ -13,9 +13,9 @@
 				<label ng-repeat="state in states">
 					<input ng-if="state.idEstado == actualState" checked 
 					type="radio" name={{state.idEstado}} value={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)">
-					<input ng-if="state.idEstado != actualState" value={{state.idEstado}} name={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)"
+					<input ng-if="state.idEstado != actualState && state.idEstado !=2" value={{state.idEstado}} name={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)"
 					type="radio">
-					{{state.Nombre}}
+					<span ng-if="state.idEstado !=2">{{state.Nombre}}</span>
 				</label>
 			</div>
 		</div>

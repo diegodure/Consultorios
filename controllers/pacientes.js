@@ -92,12 +92,12 @@ angular.module('pacientes',['angularModalService'])
 	};
 
 	//Funcion que se encarga de eliminar un registro
-	$scope.eliminar = function(paciente){
+	$scope.historial = function(paciente){
 		var paciente = paciente;
 		//alert(cliente);
 		ModalService.showModal({
-			templateUrl: "eliminarPaciente.html",
-			controller: "eliminarCtrl",
+			templateUrl: "historialPaciente.html",
+			controller: "historialCtrl",
 			inputs: {
 				id: paciente.idPaciente,
 				ci: paciente.Nombre
@@ -115,7 +115,7 @@ angular.module('pacientes',['angularModalService'])
 	
 })
 
-.controller('eliminarCtrl', function($scope, close, $http, id, ci,flash){
+.controller('historialCtrl', function($scope, close, $http, id, ci,flash){
 
 	$scope.cerrarModal = function(){
 		close();
@@ -128,12 +128,21 @@ angular.module('pacientes',['angularModalService'])
 	};
 
 
-	$http.post("../models/eliminarPacientes.php", model)
+	$http.post("../models/historialPacientes.php", model)
 	.success(function(res){
+		console.log(res)
 		$scope.historial = res;
 		
 		//close();
 	});
+
+	$scope.showHistoric = function(idConsulta){
+		if(angular.element($("#historic-"+idConsulta)).css("display") == "none"){
+			angular.element($("#historic-"+idConsulta)).css("display", "block");
+		}else{
+			angular.element($("#historic-"+idConsulta)).css("display", "none");
+		}
+	}
 	
 })
 
