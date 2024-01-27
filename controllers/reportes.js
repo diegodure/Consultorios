@@ -81,8 +81,6 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
   $scope.createReport = function(date1, date2){
     sumToTotal = 0;
     $scope.totalConsultasRealizadas = 0;
-    var line = document.getElementById("mylineGraph").getContext("2d");
-    var barChart = document.getElementById("barChart")
     $scope.datos = [];
     $scope.data = [];
     $scope.etiquetas = [];
@@ -129,9 +127,7 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
             }
           }
           $scope.data.push(cancelado.length,realizado.length,pendiente.length);
-          var mylineGraph = new Chart(line, {
-
-          });
+          
         }
       });
 

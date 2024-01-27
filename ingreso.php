@@ -25,7 +25,11 @@
 				$row = $result->fetch_array();
 				$_SESSION["user"] = $row['rol'];
 				echo '<div class="logoLogin"><i class="fas fa-spinner"></i></div>';
-				echo '<script> window.location="views/agenda.php"; </script>';
+				if($_SESSION["user"] == 'Professional'){
+					echo '<script> window.location="views/consultas.php"; </script>';
+				}else{
+					echo '<script> window.location="views/agenda.php"; </script>';
+				}
 			}else{
 				 echo '<script> alert("User o password incorrectos");</script>';
 				 echo '<script> window.location="../login.php"; </script>';

@@ -142,13 +142,13 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
           $scope.msgBody  = res;
           $scope.msgType  = 'success';
           flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-          close(true);        
+          $scope.printConsult(true);        
         }
       });
     }
 	}
 
-  $scope.printConsult = function(){
+  $scope.printConsult = function(closeModal){
     console.log(consulta)
     html2canvas(document.getElementById('consultToPrint'),{
       onrendered: function(canvas){
@@ -252,6 +252,9 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
             } 
         };
         pdfMake.createPdf(docDefinition).open();
+        if(closeModal){
+          close(true);
+        }
         //pdfMake.createPdf(docDefinition).download("consult.pdf");
       }
     });

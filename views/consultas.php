@@ -25,7 +25,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				
-				<h4><i class='glyphicon glyphicon-plus'></i> Nueva Consulta</h4>
+				<h4><i class='glyphicon glyphicon-plus'></i>Consultas</h4>
 			</div>
 					<div class="panel-body">
 						<form class="form-horizontal" role="form">
@@ -95,6 +95,15 @@
 </body>
 </html>
 <?php
+		 if($_SESSION['user'] == 'Professional'){
+			echo '<script>
+	            getUserRolForMenu("professional");
+	        </script>';
+		}else if($_SESSION['user'] == 'Recepcionista'){
+			echo '<script>
+	            getUserRolForMenu("receptionist");
+	        </script>';
+		}
 	 }else{
 	 	echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';

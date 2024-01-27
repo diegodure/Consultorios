@@ -31,6 +31,7 @@
     <script type="text/javascript" src="../controllers/profesionales.js"></script>
     <script type="text/javascript" src="../controllers/usuarios.js"></script>
     <script type="text/javascript" src="../controllers/reportes.js"></script>
+    <script type="text/javascript" src="../controllers/main.js"></script>
     
 
 

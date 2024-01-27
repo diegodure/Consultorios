@@ -253,6 +253,7 @@ pass, idRol, rol, flash){
 		  	$scope.msgType  = 'warning';
 		 	flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
 		}else{
+			console.log(model)
 			angular.element($("#spinerContainer")).css("display", "block");
 			$http.post("../models/insertUsuario.php", model)
 			.success(function(res){

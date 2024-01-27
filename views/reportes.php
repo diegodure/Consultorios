@@ -91,13 +91,6 @@
                             Total: {{totalC | currency :'₲':0}}
                         </div>
                     </div>
-                    <div class="col col-md-12 col-lg-12 col-xl-12">
-                        <canvas id="mylineGraph"></canvas>
-                    </div>
-                    <div class="col col-md-12 col-lg-12 col-xl-12" >
-                        
-                        <canvas id="barChart" class="chart chart-bar" chart-colors="colors" chart-data="datos" chart-labels="etiquetas" chart-series="series" chart-legend="options"></canvas>
-                    </div>
                     <div class="col col-md-12 col-lg-12 col-xl-12" >
                      <canvas id="pie" class="chart chart-pie" chart-options="options" chart-colors="colors" chart-data="data" chart-labels="labels"></canvas>
                       
@@ -128,7 +121,15 @@
 </body>
 </html>
 <?php
-
+        if($_SESSION['user'] == 'Professional'){
+            echo '<script>
+                getUserRolForMenu("professional");
+            </script>';
+        }else if($_SESSION['user'] == 'Recepcionista'){
+            echo '<script>
+                getUserRolForMenu("receptionist");
+            </script>';
+        }
      }else{
         echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';

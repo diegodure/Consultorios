@@ -96,7 +96,16 @@
 </body>
 </html>
 <?php
-	}else{
+		if($_SESSION['user'] == 'Professional'){
+			echo '<script>
+	            getUserRolForMenu("professional");
+	        </script>';
+		}else if($_SESSION['user'] == 'Recepcionista'){
+			echo '<script>
+	            getUserRolForMenu("receptionist");
+	        </script>';
+		}
+	 }else{
 	 	echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';
     }
