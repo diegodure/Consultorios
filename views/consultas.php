@@ -36,6 +36,12 @@
 									<input type="text" class="form-control" placeholder="Buscar Consulta" ng-model="buscar.$">
 								</div>
 								<div class="col-md-3">
+									<label><input type="radio" ng-model="consult.type" value="">Todos</label>
+									<label><input type="radio" ng-model="consult.type" value="Pendiente">Pendiente</label>
+									<label><input type="radio" ng-model="consult.type" value="Realizada">Realizada</label>
+									<label><input type="radio" ng-model="consult.type" value="Cancelada">Cancelada</label>
+								</div>
+								<div class="col-md-3">
 									<button type="button" class="btn btn-default" ng-click="searchConsult()">
 									<span class="glyphicon glyphicon-search"></span> Buscar</button>
 									<span></span>
@@ -54,7 +60,7 @@
 									<th>Estado</th>
 									<th>Profesional</th>
 								</tr>
-								<tr ng-repeat="consulta in consultas | orderBy:ordenSeleccionado | filter:buscar:strict" style="cursor: pointer;" ng-click="showConsult(consulta)">
+								<tr ng-repeat="consulta in consultas | orderBy:ordenSeleccionado | filter:buscar:strict | filter:{Estado:consult.type}" style="cursor: pointer;" ng-click="showConsult(consulta)">
 									<td>{{consulta.idConsulta}}</td>
 									<td>{{consulta.title}} {{consulta.pacienteApellido}}</td>
 							

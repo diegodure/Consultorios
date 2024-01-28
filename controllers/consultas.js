@@ -29,6 +29,10 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 
 	    $scope.getConsultas();
 	    $scope.getStates();
+
+      $scope.consult = {
+        type : ""
+      };
         
 	});
 

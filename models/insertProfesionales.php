@@ -4,8 +4,7 @@
   $apellido = $data->{"apellido"};
   $ci = $data->{"ci"};
   $telefono = $data->{"telefono"};
-    
-  $costo = $data->{"costo"};
+
 
   include("../conect.php");
 

@@ -1,5 +1,5 @@
 <?php
-	$con = new mysqli("localhost","root","root","Consultorio");
+	$con = new mysqli("localhost","root","","Consultorio");
 	// if($con>0){
 	// 	echo "conexion ok";
 	// }else{
