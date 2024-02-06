@@ -18,12 +18,13 @@
 
 			$usuario = $_POST['user'];
 			$pass = $_POST['pass'];
-			$sql = "select Usuarios.User, Usuarios.Pass, Roles.Nombre as rol from Usuarios inner join Roles on Usuarios.Roles_idRol=Roles.idRol where User='$usuario' and Pass='$pass'";
+			$sql = "select Usuarios.User, Usuarios.Pass, Usuarios.Nombres, Usuarios.Apellidos, Usuarios.idUsuario, Roles.Nombre as rol from Usuarios inner join Roles on Usuarios.Roles_idRol=Roles.idRol where User='$usuario' and Pass='$pass'";
 			
 			
 			if($result = $con->query($sql)){
 				$row = $result->fetch_array();
 				$_SESSION["user"] = $row['rol'];
+				$_SESSION["idUser"] = $row['idUsuario'];
 				echo '<div class="logoLogin"><i class="fas fa-spinner"></i></div>';
 				if($_SESSION["user"] == 'Professional'){
 					echo '<script> window.location="views/consultas.php"; </script>';

@@ -1,10 +1,10 @@
 <?php
 	$data = json_decode(file_get_contents("php://input"));
-	$idProfesional = $data->{"idProfesional"};
+	$idUsuario = $data->{"idUsuario"};
 	
 	include("../conect.php");
 
-	$sql = "update Profesionales set Active='1' where idProfesionale='$idProfesional'";
+	$sql = "delete from Usuarios where idUsuario='$idUsuario' and Roles_idRol=2";
 	$results = $con->query($sql);
 
 	if(!$results){ 

@@ -27,7 +27,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 	angular.element(document).ready(function () {
     var states;
 
-    $scope.selectConsultas();
+    $scope.selectConsultas(IdUser,roleUser);
     $scope.getStates();
         
 	});
@@ -38,7 +38,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       });
   }
 
-  $scope.selectConsultas = function(){
+  $scope.selectConsultas = function(idUser,roleUser){
     var calendarEl = document.getElementById('calendar');
 
     var actualDate = new Date();
@@ -89,9 +89,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       },
       events: []
     });
-
+    var data = {
+      "idUser":idUser
+    }
     angular.element($("#spinerContainer")).css("display", "block");
-    $http.get('../models/agendConsult.php').success(function(data){
+    $http.post('../models/agendConsult.php',data).success(function(data){
       angular.element($("#spinerContainer")).css("display", "none");
       $scope.consultas = data;
       for(var i = 0; i < data.length; i++){
@@ -407,11 +409,16 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
+      }else if(time2 <= time){
+        $scope.msgTitle = 'Atención';
+        $scope.msgBody  = 'La hora fin no puede ser menor o igual a la hora de inicio: '+time;
+        $scope.msgType  = 'warning';
+        flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
       }else{
         if(model.idPaciente == undefined || model.servicio == undefined || model.fecha == undefined
          || time == undefined || model.motivo == undefined || model.profesional == undefined){
           $scope.msgTitle = 'Atención';
-          $scope.msgBody  = 'Debe completar los campos requeridos';
+          $scope.msgBody  = 'Debe completar los campos requeridos (*)';
           $scope.msgType  = 'warning';
           flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
         }else{

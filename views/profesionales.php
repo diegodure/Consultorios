@@ -60,7 +60,7 @@
 								</tr>
 								
 								<tr ng-repeat="profesional in profesionales | orderBy:ordenSeleccionado | filter:buscar:strict">
-									<td>{{profesional.idProfesionale}}</td>
+									<td>{{profesional.idUsuario}}</td>
 									<td>{{profesional.Nombres}}</td>
 							
 									<!-- Filtro lowercase para letras en minusculas -->

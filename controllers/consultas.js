@@ -27,13 +27,12 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 	angular.element(document).ready(function () {
 	    var states;
 
-	    $scope.getConsultas();
+	    $scope.getConsultas(IdUser,roleUser);
 	    $scope.getStates();
 
       $scope.consult = {
         type : ""
       };
-        
 	});
 
 	$scope.getStates = function(){
@@ -43,8 +42,11 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
   	}
 
   	angular.element($("#spinerContainer")).css("display", "block");
-  	$scope.getConsultas = function(){
-  	  $http.get('../models/agendConsult.php').success(function(data){
+  	$scope.getConsultas = function(idUser,roleUser){
+      var data = {
+        "idUser":idUser
+      }
+  	  $http.post('../models/agendConsult.php', data).success(function(data){
   	  	angular.element($("#spinerContainer")).css("display", "none");
   	  	$scope.consultas = data;
   	  });

@@ -3,7 +3,9 @@
     include("../conect.php");
     
     if(isset($_SESSION['user'])){
-    	$title = "Consultas"
+    	$title = "Consultas";
+    	$idUser = $_SESSION['idUser'];
+    	$roleUser = $_SESSION['user'];
   ?>
   <!DOCTYPE html>
 <html>

@@ -117,7 +117,7 @@ angular.module('profesionales',['angularModalService'])
 		close();
 	};
 	var model = {
-		idProfesional: profesional.idProfesionale,
+		idUsuario: profesional.idUsuario,
 		nombe: profesional.Nombres
 	};
 
@@ -143,9 +143,11 @@ angular.module('profesionales',['angularModalService'])
 
 	//El controller del modal modificar totalmente independiente de la pagina principal
 .controller('modificarCtrl', function($scope, close, $http, profesional,flash){
-	$scope.idProfesionale = profesional.idProfesionale;
+	$scope.idUsuario = profesional.idUsuario;
 	$scope.nombre = profesional.Nombres;
 	$scope.apellido = profesional.Apellidos;
+	$scope.user = profesional.User;
+	$scope.pass = profesional.Pass;
 	$scope.ci = profesional.Ci;
 	$scope.telefono = profesional.Telefono;
 
@@ -154,15 +156,17 @@ angular.module('profesionales',['angularModalService'])
 	};
 	$scope.modificarProfesional = function(){
 		var model = {
-			idProfesionale: $scope.idProfesionale,
+			idUsuario: $scope.idUsuario,
 			nombre: $scope.nombre,
 			apellido: $scope.apellido,
+			user: $scope.user,
+			pass: $scope.pass,
 			ci: $scope.ci,
 			telefono: $scope.telefono
 		};
 	
 		if(model.nombre == undefined || model.apellido == undefined || model.ci == undefined 
-			|| model.telefono == undefined){
+			|| model.telefono == undefined || model.user == undefined || model.pass == undefined){
 			$scope.msgTitle = 'Atención';
 		  	$scope.msgBody  = 'Debe completar los campos obligatorios!';
 		  	$scope.msgType  = 'warning';
@@ -203,12 +207,14 @@ angular.module('profesionales',['angularModalService'])
 		var model = {
 			nombre: $scope.nombre,
 			apellido: $scope.apellido,
+			user: $scope.user,
+			pass: $scope.pass,
 			ci: $scope.ci,
 			telefono: $scope.telefono,
 		};
 
 		if(model.nombre == undefined || model.apellido == undefined || model.ci == undefined 
-			|| model.telefono == undefined){
+			|| model.telefono == undefined || model.user == undefined || model.pass == undefined){
 			$scope.msgTitle = 'Atención';
 		  	$scope.msgBody  = 'Debe completar los campos obligatorios!';
 		  	$scope.msgType  = 'warning';
