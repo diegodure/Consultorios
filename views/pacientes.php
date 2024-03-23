@@ -3,7 +3,9 @@
     include("../conect.php");
     
     if(isset($_SESSION['user'])){
-    	$title = "Pacientes"
+    	$title = "Pacientes";
+    	$idUser = $_SESSION['idUser'];
+    	$roleUser = $_SESSION['user'];
   ?>
   <!DOCTYPE html>
 <html>
@@ -106,7 +108,7 @@
 </body>
 </html>
 <?php
-		if($_SESSION['user'] == 'Professional'){
+		 if($_SESSION['user'] == 'Profesional'){
 			echo '<script>
 	            getUserRolForMenu("professional");
 	        </script>';
@@ -115,7 +117,6 @@
 	            getUserRolForMenu("receptionist");
 	        </script>';
 		}
-		 
 	 }else{
 	 	echo '<script> alert("User o password incorrectos");</script>';
         echo '<script> window.location="../login.php";</script>';

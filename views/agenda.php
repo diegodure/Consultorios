@@ -38,7 +38,7 @@
 </body>
 </html>
 <?php
-		if($_SESSION['user'] == 'Professional'){
+		if($_SESSION['user'] == 'Profesional'){
 			echo '<script>
 	            getUserRolForMenu("professional");
 	        </script>';

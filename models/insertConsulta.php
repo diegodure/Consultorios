@@ -18,7 +18,7 @@
     $observacion = "";
   }
   
-  $sql = "insert into Consultas (idConsulta, Servicios_idServicio, Fecha, Fecha2, Pacientes_idPaciente, Motivo, Observacion, color, Estados_idEstado, Profesionales_idProfesionale) values (null, '$servicio', '$fecha', '$fecha2', '$paciente', '$motivo', '$observacion', '#3788d8', '1','$profesional')";
+  $sql = "insert into Consultas (idConsulta, Servicios_idServicio, Fecha, Fecha2, Pacientes_idPaciente, Motivo, Observacion, color, Estados_idEstado, Usuarios_idUsuario) values (null, '$servicio', '$fecha', '$fecha2', '$paciente', '$motivo', '$observacion', '#3788d8', '1','$profesional')";
   $results = $con->query($sql);
 
   if(!$results){ 

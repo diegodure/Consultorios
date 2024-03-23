@@ -21,7 +21,7 @@
     $observacion = "";
   }
 
-  $sql = "update Consultas set Servicios_idServicio='$servicio', Fecha='$fecha', Fecha2='$fecha2', Pacientes_idPaciente='$paciente', Motivo='$motivo', Observacion='$observacion', color='$color', Estados_idEstado='$estado', Profesionales_idProfesionale='$profesional' where idConsulta='$idConsulta'";
+  $sql = "update Consultas set Servicios_idServicio='$servicio', Fecha='$fecha', Fecha2='$fecha2', Pacientes_idPaciente='$paciente', Motivo='$motivo', Observacion='$observacion', color='$color', Estados_idEstado='$estado', Usuarios_idUsuario='$profesional' where idConsulta='$idConsulta'";
   $results = $con->query($sql);
 
   if(!$results){ 

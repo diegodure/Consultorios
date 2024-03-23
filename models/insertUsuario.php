@@ -5,10 +5,12 @@
 	$user = $data->{"user"};
 	$pass = $data->{"pass"};
 	$rol = $data->{"rol"};
+	$ci = $data->{"ci"};
+	$telefono = $data->{"telefono"};
 
 	include("../conect.php");
 
-	$sql = "insert into Usuarios (idUsuario, Nombres, Apellidos, User, Pass, Roles_idRol) values (null, '$nombre', '$apellido', '$user', '$pass',  '$rol')";
+	$sql = "insert into Usuarios (idUsuario, Nombres, Apellidos, User, Pass, Roles_idRol, Ci, Telefono) values (null, '$nombre', '$apellido', '$user', '$pass',  '$rol','$ci','$telefono')";
 	$results = $con->query($sql);
 
 	if(!$results){ 

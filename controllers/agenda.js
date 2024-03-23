@@ -275,6 +275,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         var DateTimeSplit2 = info.event.extendedProps[clave].split(" ");
       }
     }
+    console.log(info.event.extendedProps.idEstado)
     $scope.modalTitle = "Editar consulta";
     $scope.modalIcon = "glyphicon glyphicon-edit";
     $scope.isEdit = true;
@@ -409,7 +410,8 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         $scope.msgBody  = 'La hora no puede ser menor a la hora actual: '+actualTime;
         $scope.msgType  = 'warning';
         flash.pop({title: $scope.msgTitle, body: $scope.msgBody, type: $scope.msgType});
-      }else if(time2 <= time){
+      }else if(time2 <= time && 
+        angular.element($("input[type='radio']:checked")).val() == "1"){
         $scope.msgTitle = 'Atención';
         $scope.msgBody  = 'La hora fin no puede ser menor o igual a la hora de inicio: '+time;
         $scope.msgType  = 'warning';
@@ -428,6 +430,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
           model.fecha2 += " "+time2;
           angular.element($("#spinerContainer")).css("display", "block");
           if($scope.isEdit){
+            console.log(model)
             if(model.estado == 2 || model.estado == "2"){
               model.color = "#2f6010";
             }else if(model.estado == 3 || model.estado == "3"){

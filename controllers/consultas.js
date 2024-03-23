@@ -87,6 +87,7 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 	$scope.pacienteApellido = consulta.pacienteApellido;
 	$scope.motivoConsulta = consulta.Motivo;
 	$scope.observacionConsulta = consulta.Observacion;
+  $scope.idEstado = consulta.idEstado;
 
   $scope.printButton = false;
 
@@ -135,6 +136,7 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
         observacion: $scope.observacion,
         nextCosult: $scope.nextCosult
       }
+      console.log(model)
       angular.element($("#spinerContainer")).css("display", "block");
       $http.post('../models/closeConsult.php',model).success(function(res){
         angular.element($("#spinerContainer")).css("display", "none");

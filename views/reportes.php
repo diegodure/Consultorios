@@ -91,9 +91,12 @@
                             Total: {{totalC | currency :'₲':0}}
                         </div>
                     </div>
-                    <div class="col col-md-12 col-lg-12 col-xl-12" >
+                    <div class="col col-md-12 col-lg-6 col-xl-6" >
                      <canvas id="pie" class="chart chart-pie" chart-options="options" chart-colors="colors" chart-data="data" chart-labels="labels"></canvas>
                       
+                    </div>
+                    <div class="col col-md-12 col-lg-6 col-xl-6">
+                        <canvas id="barChart" class="chart chart-bar" chart-colors="colors" chart-data="datos" chart-labels="labels" chart-series="data" chart-legend="options"></canvas>
                     </div>
                 </div>
                     

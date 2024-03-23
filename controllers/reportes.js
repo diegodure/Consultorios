@@ -107,6 +107,7 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
       angular.element($("#spinerContainer")).css("display", "block");
       $http.post("../models/maxService.php", fechas)
       .success(function(data){
+        console.log(data)
         angular.element($("#spinerContainer")).css("display", "none");
         if(data == "error"){
           $scope.msgTitle = 'Error';
@@ -126,6 +127,8 @@ angular.module('reportes',['720kb.datepicker','chart.js'])
               cancelado.push($scope.consultForGraphic[i]);
             }
           }
+          $scope.datos.push(cancelado.length,realizado.length,pendiente.length)
+          
           $scope.data.push(cancelado.length,realizado.length,pendiente.length);
           
         }

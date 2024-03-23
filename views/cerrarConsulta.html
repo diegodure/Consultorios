@@ -86,7 +86,7 @@
 		</div>
 	<div class="modal-footer">
 		<button class="btn btn-default" ng-click="cerrarModal()">Cerrar</button>
-		<button type="submit" class="btn btn-primary" ng-if="!printButton" ng-click="saveConsult()">Guardar Datos</button>
+		<button type="submit" class="btn btn-primary" ng-if="!printButton && idEstado != '3'" ng-click="saveConsult()">Guardar Datos</button>
 		<button type="submit" class="btn btn-primary" ng-if="printButton" ng-click="printConsult()">Imprimir Consulta</button>
 	</div>
 </div>

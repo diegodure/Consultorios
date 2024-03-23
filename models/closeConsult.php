@@ -1,28 +1,27 @@
 <?php
   $data = json_decode(file_get_contents("php://input"));
   include("../conect.php");
-
   $idConsulta = $data->{"idConsulta"};
   $indicaciones = $data->{"indicaciones"};
   if(!empty($data->{"receta"})){
     $receta = $data->{"receta"};
   }else{
-    $receta = "";
+    $receta = '';
   }
   if(!empty($data->{"analisis"})){
     $analisis = $data->{"analisis"};
   }else{
-    $analisis = "";
+    $analisis = '';
   }
   if(!empty($data->{"observacion"})){
     $observacion = $data->{"observacion"};
   }else{
-    $observacion = "";
+    $observacion = '';
   }
   if(!empty($data->{"nextCosult"})){
     $nextCosult = $data->{"nextCosult"};
   }else{
-    $nextCosult = "";
+    $nextCosult = '2024-07-04 06:30:00';
   }
   
   $sql = "insert into Resultado (Consultas_idConsulta, Fecha, Imagen, Observacion, Indicaciones, Receta, Analisis, Siguiente_Consulta) values ('$idConsulta', CURDATE(), '', '$observacion', '$indicaciones', '$receta', '$analisis', '$nextCosult')";

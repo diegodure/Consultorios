@@ -97,7 +97,9 @@ angular.module('usuarios',['angularModalService'])
     			user: usuario.User,
     			pass: usuario.Pass,
     			idRol: usuario.rolId,
-    			rol: usuario.Rol
+    			rol: usuario.Rol,
+    			ci: usuario.Ci,
+    			telefono: usuario.Telefono
   			}
 		}).then(function(modal){
 			modal.close.then(function(result){
@@ -162,7 +164,7 @@ angular.module('usuarios',['angularModalService'])
 
 	//El controller del modal modificar totalmente independiente de la pagina principal (clientes)
 .controller('modificarCtrl', function($scope, close, $http, id, nombre, apellido, user,
-pass, idRol, rol, flash){
+pass, idRol, rol, ci, telefono, flash){
 	var myRol;
 	angular.element($("#spinerContainer")).css("display", "block");
 	$http.get('../models/selectRoles.php').success(function(data){
@@ -183,6 +185,8 @@ pass, idRol, rol, flash){
 	$scope.apellido = apellido;
 	$scope.user = user;
 	$scope.pass = pass;
+	$scope.ci = ci;
+	$scope.telefono = telefono;
 	$scope.cerrarModal = function(){
 		close();
 	};
@@ -193,7 +197,9 @@ pass, idRol, rol, flash){
 			user: $scope.user,
 			pass: $scope.pass,
 			rol: $scope.myRol.idRol,
-			idUsuario: $scope.idUsuario
+			idUsuario: $scope.idUsuario,
+			ci:$scope.ci,
+			telefono:$scope.telefono
 	};
 
 		angular.element($("#spinerContainer")).css("display", "block");
@@ -244,10 +250,13 @@ pass, idRol, rol, flash){
 			apellido: $scope.apellido,
 			user: $scope.user,
 			pass: $scope.pass,
-			rol: $scope.rol
+			rol: $scope.rol,
+			ci: $scope.ci,
+			telefono: $scope.telefono
 		};
 		if(model.nombre == undefined || model.apellido == undefined || model.user == undefined 
-			|| model.pass == undefined || model.rol == undefined){
+			|| model.pass == undefined || model.rol == undefined || model.ci == undefined 
+			|| model.telefono == undefined){
 			$scope.msgTitle = 'Atención';
 		  	$scope.msgBody  = 'Debe completar los campos requeridos!';
 		  	$scope.msgType  = 'warning';

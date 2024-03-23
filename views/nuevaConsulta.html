@@ -10,14 +10,23 @@
 		<div class="form-group" ng-if="isEdit">
 			<label for="nombre" class="col-sm-4 control-label">Estado</label>
 			<div class="col-sm-8">
-				<label ng-repeat="state in states">
-					<input ng-if="state.idEstado == actualState" checked 
-					type="radio" name={{state.idEstado}} value={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)">
-					<input ng-if="state.idEstado != actualState && state.idEstado !=2" value={{state.idEstado}} name={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)"
-					type="radio">
-					<span ng-if="state.idEstado !=2">{{state.Nombre}}</span>
-				</label>
+				<div ng-if="actualState != 2">
+					<label ng-repeat="state in states">
+						<input ng-if="state.idEstado == actualState && state.idEstado !=2" checked 
+						type="radio" name={{state.idEstado}} value={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)">
+						<input ng-if="state.idEstado != actualState && state.idEstado !=2" value={{state.idEstado}} name={{state.idEstado}} ng-click="checkedInputRadio(state.idEstado)"
+						type="radio">
+						<span ng-if="state.idEstado !=2">{{state.Nombre}}</span>
+					</label>
+				</div>
+				<div ng-if="actualState == 2">
+					Realizada
+				</div>
+				
 			</div>
+		</div>
+		<div class="form-group" ng-if="!isEdit" style="display: none">
+			<input checked type="radio" value="1">
 		</div>
 		<br ng-if="isEdit">
 		<br ng-if="isEdit">
@@ -44,12 +53,12 @@
 			<div class="col-sm-8">
 				<select class="form-control" id="profesional" ng-model="profesional" ng-if="!isEdit">
 					<option value="">---Seleccionar---</option> <!-- not selected / blank option -->
-      				<option ng-repeat="profesional in profesionales" value="{{profesional.idProfesionale}}">
+      				<option ng-repeat="profesional in profesionales" value="{{profesional.idUsuario}}">
       					{{profesional.Nombres}} {{profesional.Apellidos}}
       				</option> <!-- interpolation -->
 				</select>
 				<select ng-if="isEdit" id="profesional" class="form-control">
-					<option ng-repeat="profesional in profesionales" value="{{profesional.idProfesionale}}">
+					<option ng-repeat="profesional in profesionales" value="{{profesional.idUsuario}}">
       					{{profesional.Nombres}} {{profesional.Apellidos}}
       				</option>
 				</select>
@@ -146,7 +155,7 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-default" ng-click="cerrarModal()">Cerrar</button>
-		<button type="submit" class="btn btn-primary" ng-click="guardarConsulta()">Guardar Datos</button>
+		<button ng-if="actualState != 2" type="submit" class="btn btn-primary" ng-click="guardarConsulta()">Guardar Datos</button>
 	</div>
 </div>
 </div>

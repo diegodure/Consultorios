@@ -26,7 +26,7 @@
 				$_SESSION["user"] = $row['rol'];
 				$_SESSION["idUser"] = $row['idUsuario'];
 				echo '<div class="logoLogin"><i class="fas fa-spinner"></i></div>';
-				if($_SESSION["user"] == 'Professional'){
+				if($_SESSION["user"] == 'Profesional'){
 					echo '<script> window.location="views/consultas.php"; </script>';
 				}else{
 					echo '<script> window.location="views/agenda.php"; </script>';
