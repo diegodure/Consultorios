@@ -26,7 +26,6 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 .controller('AgendaCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
     var states;
-
     $scope.selectConsultas(IdUser,roleUser);
     $scope.getStates();
         
@@ -93,14 +92,25 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       "idUser":idUser
     }
     angular.element($("#spinerContainer")).css("display", "block");
-    $http.post('../models/agendConsult.php',data).success(function(data){
-      angular.element($("#spinerContainer")).css("display", "none");
-      $scope.consultas = data;
-      for(var i = 0; i < data.length; i++){
-        $scope.calendar.addEvent(data[i]);
-      }
-    });
-
+    console.log(roleUser)
+    if(roleUser == 'Profesional'){
+      $http.post('../models/agendConsult.php',data).success(function(data){
+        angular.element($("#spinerContainer")).css("display", "none");
+        $scope.consultas = data;
+        for(var i = 0; i < data.length; i++){
+          $scope.calendar.addEvent(data[i]);
+        }
+      });
+    }else{
+      $http.post('../models/agendConsultAdmin.php',data).success(function(data){
+        angular.element($("#spinerContainer")).css("display", "none");
+        $scope.consultas = data;
+        for(var i = 0; i < data.length; i++){
+          $scope.calendar.addEvent(data[i]);
+        }
+      });
+    }
+    
     $scope.calendar.render();
     var topbar = angular.element($(".navbar-default")).innerHeight();
     var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();

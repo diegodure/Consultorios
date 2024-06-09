@@ -103,13 +103,17 @@
 </body>
 </html>
 <?php
-		 if($_SESSION['user'] == 'Profesional'){
+		if($_SESSION['user'] == 'Profesional'){
 			echo '<script>
-	            getUserRolForMenu("professional");
+	            getUserRolForMenu("Profesional");
 	        </script>';
 		}else if($_SESSION['user'] == 'Recepcionista'){
 			echo '<script>
-	            getUserRolForMenu("receptionist");
+	            getUserRolForMenu("Recepcionista");
+	        </script>';
+		}else if($_SESSION['user'] == 'Administrador'){
+			echo '<script>
+	            getUserRolForMenu("Administrador");
 	        </script>';
 		}
 	 }else{

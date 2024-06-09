@@ -3,7 +3,9 @@
     include("../conect.php");
     
     if(isset($_SESSION['user'])){
-    	$title = "Profesionales"
+    	$title = "Profesionales";
+    	$idUser = $_SESSION['idUser'];
+    	$roleUser = $_SESSION['user'];
   ?>
   <!DOCTYPE html>
 <html>
@@ -97,13 +99,17 @@
 </body>
 </html>
 <?php
-		if($_SESSION['user'] == 'Professional'){
+		if($_SESSION['user'] == 'Profesional'){
 			echo '<script>
-	            getUserRolForMenu("professional");
+	            getUserRolForMenu("Profesional");
 	        </script>';
 		}else if($_SESSION['user'] == 'Recepcionista'){
 			echo '<script>
-	            getUserRolForMenu("receptionist");
+	            getUserRolForMenu("Recepcionista");
+	        </script>';
+		}else if($_SESSION['user'] == 'Administrador'){
+			echo '<script>
+	            getUserRolForMenu("Administrador");
 	        </script>';
 		}
 	 }else{
