@@ -26,7 +26,6 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 .controller('ConsultasCtrl', function($scope, $http, ModalService){
 	angular.element(document).ready(function () {
 	    var states;
-
 	    $scope.getConsultas(IdUser,roleUser);
 	    $scope.getStates();
 
@@ -43,13 +42,22 @@ angular.module('consultas',['angularModalService', '720kb.datepicker','moment-pi
 
   	angular.element($("#spinerContainer")).css("display", "block");
   	$scope.getConsultas = function(idUser,roleUser){
-      var data = {
-        "idUser":idUser
+      if(roleUser == 'Administrador'){
+        $http.get('../models/agendConsultAdmin.php').success(function(data){
+          angular.element($("#spinerContainer")).css("display", "none");
+          $scope.consultas = data;
+        });
+      }else{
+        var data = {
+          "idUser":idUser
+        }
+
+        $http.post('../models/agendConsult.php', data).success(function(data){
+          angular.element($("#spinerContainer")).css("display", "none");
+          $scope.consultas = data;
+        });
       }
-  	  $http.post('../models/agendConsult.php', data).success(function(data){
-  	  	angular.element($("#spinerContainer")).css("display", "none");
-  	  	$scope.consultas = data;
-  	  });
+      
   	}
 
   	$scope.searchConsult = function(){
