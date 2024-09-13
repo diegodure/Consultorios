@@ -6,6 +6,7 @@
     	$title = "Agenda";
     	$idUser = $_SESSION['idUser'];
     	$roleUser = $_SESSION['user'];
+		$idService = $_SESSION['idService'];
   ?>
  <!DOCTYPE html>
 <html>
@@ -41,16 +42,16 @@
 <?php
 		if($_SESSION['user'] == 'Profesional'){
 			echo '<script>
-	            getUserRolForMenu("Profesional");
-	        </script>';
+				getUserRolForMenu("Profesional", ' . json_encode($idService) . ');
+			</script>';
 		}else if($_SESSION['user'] == 'Recepcionista'){
 			echo '<script>
-	            getUserRolForMenu("Recepcionista");
-	        </script>';
+				getUserRolForMenu("Recepcionista", ' . json_encode($idService) . ');
+			</script>';
 		}else if($_SESSION['user'] == 'Administrador'){
 			echo '<script>
-	            getUserRolForMenu("Administrador");
-	        </script>';
+				getUserRolForMenu("Administrador", ' . json_encode($idService) . ');
+			</script>';
 		}
 	 }else{
 	 	echo '<script> alert("User o password incorrectos");</script>';

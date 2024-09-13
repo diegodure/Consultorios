@@ -1,5 +1,6 @@
 <?php
 	$data = json_decode(file_get_contents("php://input"));
+	$idService = $data->{"idService"};
 	$nombre = $data->{"nombre"};
 	$apellido = $data->{"apellido"};
 	$ci = $data->{"ci"};
@@ -23,7 +24,7 @@
 
 	include("../conect.php");
 
-	$sql = "insert into Pacientes (idPaciente, Nombres, Apellidos, Ci, Ciudad, Barrio, Telefono, Generos_idGenero, Descripcion) values (null, '$nombre', '$apellido', '$ci', '$ciudad',  '$barrio', '$telefono', '$genero', '$descripcion')";
+	$sql = "insert into Pacientes (idPaciente, Nombres, Apellidos, Ci, Ciudad, Barrio, Telefono, Generos_idGenero, Descripcion, empresaServicio_id) values (null, '$nombre', '$apellido', '$ci', '$ciudad',  '$barrio', '$telefono', '$genero', '$descripcion','$idService')";
 	$results = $con->query($sql);
 
 	if(!$results){ 

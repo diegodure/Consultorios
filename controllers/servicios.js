@@ -27,8 +27,7 @@ angular.module('servicios',['angularModalService'])
 
 .controller('ServiciosCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
-
-    	$scope.selectServicios();
+    	$scope.selectServicios(idService);
 
 	});
 
@@ -40,16 +39,16 @@ angular.module('servicios',['angularModalService'])
 		}).then(function(modal){
 			modal.close.then(function(result){
         		if(result){
-        			$scope.selectServicios();
+        			$scope.selectServicios(idService);
         		}	
 			})
 		})
 	};
 
-	$scope.selectServicios = function(){
+	$scope.selectServicios = function(idService){
 		//La parte del select donde mostramos los datos en la tabla
 		angular.element($("#spinerContainer")).css("display", "block");
-		$http.get('../models/selectServicios.php').success(function(data){
+		$http.get('../models/selectServicios.php', { params: { idService: idService } }).success(function(data){
 			angular.element($("#spinerContainer")).css("display", "none");
 			$scope.servicios = data;
 			var topbar = angular.element($(".navbar-default")).innerHeight();
@@ -158,7 +157,8 @@ angular.module('servicios',['angularModalService'])
 			idServicio: $scope.idServicio,
 			nombre: $scope.nombre,
 			descripcion: $scope.descripcion,
-			costo: $scope.costo
+			costo: $scope.costo,
+			idService: idService
 		};
 		if(model.nombre == undefined || model.costo == undefined){
 			$scope.msgTitle = 'Atención';
@@ -201,7 +201,8 @@ angular.module('servicios',['angularModalService'])
 		var model = {
 			nombre: $scope.nombre,
 			descripcion: $scope.descripcion,
-			costo: $scope.costo
+			costo: $scope.costo,
+			idService:idService
 		};
 
 		if(model.nombre == undefined || model.costo == undefined){

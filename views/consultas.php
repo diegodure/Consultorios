@@ -6,6 +6,7 @@
     	$title = "Consultas";
     	$idUser = $_SESSION['idUser'];
     	$roleUser = $_SESSION['user'];
+		$idService = $_SESSION['idService'];
   ?>
   <!DOCTYPE html>
 <html>
@@ -53,16 +54,18 @@
 						</form>
 						<div class="table-responsive">
 							<table class="table">
-								<tr class="info">
-									<th>Código</th>
-									<th><span class="caret" style="cursor: pointer;" ng-click="ordenarPor('Nombre')"></span>Paciente<span class="caret" style="cursor: pointer;" ng-click="ordenarPor('-Nombre')"></span></th>
-									<th>Motivo</th>
-									<th>Observación</th>
-									<th>Fecha/Hora</th>
-									<th>Estado</th>
-									<th>Profesional</th>
-								</tr>
-								<tr ng-repeat="consulta in consultas | orderBy:ordenSeleccionado | filter:buscar:strict | filter:{Estado:consult.type}" style="cursor: pointer;" ng-click="showConsult(consulta)">
+								<thead>
+									<tr class="info">
+										<th>Código</th>
+										<th><span class="caret" style="cursor: pointer;" ng-click="ordenarPor('idConsulta')"></span>Paciente<span class="caret" style="cursor: pointer;" ng-click="ordenarPor('-Nombre')"></span></th>
+										<th>Motivo</th>
+										<th>Observación</th>
+										<th>Fecha/Hora</th>
+										<th>Estado</th>
+										<th>Profesional</th>
+									</tr>
+								</thead>
+								<tr ng-repeat="consulta in consultas | orderBy:'-idConsulta' | filter:buscar:strict | filter:{Estado:consult.type}" style="cursor: pointer;" ng-click="showConsult(consulta)">
 									<td>{{consulta.idConsulta}}</td>
 									<td>{{consulta.title}} {{consulta.pacienteApellido}}</td>
 							

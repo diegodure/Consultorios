@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "angular-daterangepicker": "^0.2.3-alpha1",
+    "pdfmake": "^0.2.12"
+  }
+}

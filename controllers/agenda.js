@@ -26,9 +26,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
 .controller('AgendaCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
     var states;
-    $scope.selectConsultas(IdUser,roleUser);
+    $scope.IdUser = IdUser;
+    $scope.roleUser = roleUser;
+    $scope.idService = idService;
+    $scope.selectConsultas();
     $scope.getStates();
-        
 	});
 
   $scope.getStates = function(){
@@ -37,7 +39,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       });
   }
 
-  $scope.selectConsultas = function(idUser,roleUser){
+  $scope.selectConsultas = function(){
     var calendarEl = document.getElementById('calendar');
 
     var actualDate = new Date();
@@ -89,11 +91,11 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
       events: []
     });
     var data = {
-      "idUser":idUser
+      "idUser":$scope.idUser,
+      "idService":$scope.idService
     }
     angular.element($("#spinerContainer")).css("display", "block");
-    console.log(roleUser)
-    if(roleUser == 'Profesional'){
+    if($scope.roleUser == 'Profesional'){
       $http.post('../models/agendConsult.php',data).success(function(data){
         angular.element($("#spinerContainer")).css("display", "none");
         $scope.consultas = data;
@@ -310,6 +312,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
   }else{
     $scope.fecha = actualDate;
   }
+  console.log(actualTime)
   $scope.time = actualTime;
   $scope.time2 = actualTime;
   if($scope.isEdit){
@@ -320,7 +323,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     $scope.observacion = info.event.extendedProps.Observacion;
   }
   angular.element($("#spinerContainer")).css("display", "block");
-  $http.get('../models/selectPacientes.php').success(function(data){
+  $http.get('../models/selectPacientes.php', { params: { idService: $scope.idService } }).success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.pacientes = data;
     if($scope.isEdit){
@@ -328,7 +331,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     }
   });
   angular.element($("#spinerContainer")).css("display", "block");
-  $http.get('../models/selectProfesionales.php').success(function(data){
+  $http.get('../models/selectProfesionales.php', { params: { idService: $scope.idService } }).success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
     $scope.profesionales = data;
     if($scope.isEdit){
@@ -336,7 +339,7 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
     }
   });
   angular.element($("#spinerContainer")).css("display", "block");
-  $http.get('../models/selectServicios.php').success(function(data){
+  $http.get('../models/selectServicios.php', { params: { idService: $scope.idService } }).success(function(data){
     angular.element($("#spinerContainer")).css("display", "none");
     var modalHeader = angular.element($(".modal-header")).innerHeight();
     var navbar = angular.element($(".navbar-fixed-bottom")).innerHeight();
@@ -372,7 +375,8 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         motivo : $scope.motivo,
         observacion : $scope.observacion,
         estado: angular.element($("input[type='radio']:checked")).val(),
-        color: "#3788d8"
+        color: "#3788d8",
+        idService:$scope.idService
       };
     }else{
       model = {
@@ -382,7 +386,8 @@ angular.module('agenda',['angularModalService','720kb.datepicker','moment-picker
         fecha: $scope.fecha,
         fecha2: $scope.fecha,
         motivo : $scope.motivo,
-        observacion : $scope.observacion
+        observacion : $scope.observacion,
+        idService:$scope.idService
       };
     }
     

@@ -2,7 +2,12 @@
 
 	include("../conect.php");
 
-	$sql = "select Pacientes.idPaciente, Pacientes.Nombres, Pacientes.Apellidos, Pacientes.Ci, Pacientes.Ciudad, Pacientes.Barrio, Pacientes.Descripcion, Pacientes.Telefono, Generos.idGenero as idGender, Generos.Nombre as genderName from Pacientes inner join Generos on Pacientes.Generos_idGenero=Generos.idGenero";
+	$idService = $_GET['idService'];
+
+	$sql = "select Pacientes.idPaciente, Pacientes.Nombres, Pacientes.Apellidos, Pacientes.Ci, 
+	Pacientes.Ciudad, Pacientes.Barrio, Pacientes.Descripcion, Pacientes.Telefono, 
+	Generos.idGenero as idGender, Generos.Nombre as genderName from Pacientes inner join 
+	Generos on Pacientes.Generos_idGenero=Generos.idGenero where Pacientes.empresaServicio_id='$idService'";
 
 
 	$results = mysqli_query($con,$sql);

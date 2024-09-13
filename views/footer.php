@@ -22,7 +22,7 @@
     <script src="../controllers/html2Canvas.min.js"></script>
     <script type="text/javascript" src="../controllers/fullCalendar.js"></script>
     <script src="../controllers/moment-with-locales.js"></script>
-    <script src="../controllers/angular-moment-picker.min.js"></script>
+    <script src="../controllers/angular-moment-picker.min.js"></script>z
 
     <script type="text/javascript" src="../controllers/pacientes.js"></script>
     <script type="text/javascript" src="../controllers/consultas.js"></script>

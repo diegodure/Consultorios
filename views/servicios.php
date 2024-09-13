@@ -3,7 +3,10 @@
     include("../conect.php");
     
     if(isset($_SESSION['user'])){
-    	$title = "Servicios"
+    	$title = "Servicios";
+		$idUser = $_SESSION['idUser'];
+    	$roleUser = $_SESSION['user'];
+		$idService = $_SESSION['idService'];
   ?>
   <!DOCTYPE html>
 <html>

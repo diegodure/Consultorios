@@ -3,6 +3,7 @@
 	<script> 
 	    var IdUser = '<?php echo $idUser;?>';
 	    var roleUser = '<?php echo $roleUser;?>';
+		var idService = '<?php echo $idService;?>';
 	</script>
 	<title><?php echo $title;?></title>
 	<!-- <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> -->

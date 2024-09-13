@@ -393,6 +393,24 @@ body{
     z-index: auto;
 }
 
+.table-responsive {
+    max-height: calc(100vh - 350px); 
+    overflow: auto;
+    height: calc(100vh - 350px);
+}
+
+thead th {
+    background-color: #f2f2f2;
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
 
 
 

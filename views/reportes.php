@@ -6,6 +6,7 @@
         $title = "Impulse";
         $idUser = $_SESSION['idUser'];
         $roleUser = $_SESSION['user'];
+        $idService = $_SESSION['idService'];
   ?>
   <!DOCTYPE html>
 <html>
@@ -27,6 +28,7 @@
                 <h4><i class='glyphicon glyphicon-search'></i> Buscar Balance</h4>
             </div>
             <div class="panel-body">
+            <input type="text" class="form-control" daterangepicker="options" ng-model="dateRange" style="cursor: pointer" />
                 <div class="row">
                         
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

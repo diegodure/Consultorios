@@ -28,7 +28,7 @@ angular.module('pacientes',['angularModalService'])
 .controller('PacientesCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
 
-    	$scope.selectPacientes();
+    	$scope.selectPacientes(idService);
 
 	});
 
@@ -42,16 +42,16 @@ angular.module('pacientes',['angularModalService'])
 				// Una vez que el modal sea cerrado, la libreria invoca esta función
         		// y en result tienes el resultado.
         		if(result){
-        			$scope.selectPacientes();
+        			$scope.selectPacientes(idService);
         		}	
 			})
 		})
 	};
 
-	$scope.selectPacientes = function(){
+	$scope.selectPacientes = function(idService){
 		//La parte del select donde mostramos los datos en la tabla
 		angular.element($("#spinerContainer")).css("display", "block");
-		$http.get('../models/selectPacientes.php').success(function(data){
+		$http.get('../models/selectPacientes.php', { params: { idService: idService } }).success(function(data){
 			angular.element($("#spinerContainer")).css("display", "none");
 			$scope.pacientes = data;
 			var topbar = angular.element($(".navbar-default")).innerHeight();
@@ -247,7 +247,8 @@ angular.module('pacientes',['angularModalService'])
 			ciudad : $scope.ciudad,
 			barrio : $scope.barrio,
 			genero : $scope.genero,
-			descripcion : $scope.descripcion
+			descripcion : $scope.descripcion,
+			idService:idService
 		};
 
 		if(model.nombre == undefined || model.apellido == undefined || model.ci == undefined 

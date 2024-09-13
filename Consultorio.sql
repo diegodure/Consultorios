@@ -38,7 +38,7 @@ CREATE TABLE `Consultas` (
   `Fecha2` datetime DEFAULT NULL,
   `color` varchar(45) NOT NULL,
   `Usuarios_idUsuario` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Consultas`
@@ -56,7 +56,7 @@ INSERT INTO `Consultas` (`idConsulta`, `Servicios_idServicio`, `Fecha`, `Pacient
 CREATE TABLE `Estados` (
   `idEstado` int NOT NULL,
   `Nombre` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Estados`
@@ -76,7 +76,7 @@ INSERT INTO `Estados` (`idEstado`, `Nombre`) VALUES
 CREATE TABLE `Generos` (
   `idGenero` int NOT NULL,
   `Nombre` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Generos`
@@ -102,7 +102,7 @@ CREATE TABLE `Pacientes` (
   `Telefono` varchar(45) DEFAULT NULL,
   `Generos_idGenero` int NOT NULL,
   `Descripcion` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Pacientes`
@@ -124,7 +124,7 @@ CREATE TABLE `Profesionales` (
   `Ci` varchar(30) NOT NULL,
   `Telefono` varchar(45) NOT NULL,
   `Active` tinyint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -135,13 +135,13 @@ CREATE TABLE `Profesionales` (
 CREATE TABLE `Resultado` (
   `Consultas_idConsulta` int NOT NULL,
   `Fecha` date NOT NULL,
-  `Imagen` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Imagen` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Observacion` text,
   `Indicaciones` text NOT NULL,
-  `Receta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Receta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `Analisis` text,
   `Siguiente_Consulta` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -152,7 +152,7 @@ CREATE TABLE `Resultado` (
 CREATE TABLE `Roles` (
   `idRol` int NOT NULL,
   `Nombre` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Roles`
@@ -175,7 +175,7 @@ CREATE TABLE `Servicios` (
   `Descripcion` varchar(45) DEFAULT NULL,
   `Costo` int NOT NULL,
   `Active` tinyint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Servicios`
@@ -199,7 +199,7 @@ CREATE TABLE `Usuarios` (
   `Roles_idRol` int NOT NULL,
   `Ci` varchar(45) NOT NULL,
   `Telefono` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `Usuarios`

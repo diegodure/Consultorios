@@ -7,10 +7,13 @@
 	$pass = $data->{"pass"};
 	$ci = $data->{"ci"};
 	$telefono = $data->{"telefono"};
+	$idService = $data->{"idService"};
 	
 	include("../conect.php");
 
-	$sql = "update Usuarios set Nombres='$nombre', Apellidos='$apellido', User='$user', Pass='$pass', Ci='$ci', Telefono='$telefono' where idUsuario='$idUsuario' and Roles_idRol=2";
+	$sql = "update Usuarios set Nombres='$nombre', Apellidos='$apellido', User='$user', Pass='$pass', 
+	Ci='$ci', Telefono='$telefono' where idUsuario='$idUsuario' and Roles_idRol='2' and 
+	empresaServicio_id='$idService'";
 	$results = $con->query($sql);
 
 	if(!$results){ 

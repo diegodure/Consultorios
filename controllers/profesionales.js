@@ -28,7 +28,7 @@ angular.module('profesionales',['angularModalService'])
 .controller('ProfesionalesCtrl', function($scope, $http, ModalService, flash){
 	angular.element(document).ready(function () {
 
-    	$scope.selectProfesional();
+    	$scope.selectProfesional(idService);
 
 	});
 
@@ -40,16 +40,16 @@ angular.module('profesionales',['angularModalService'])
 		}).then(function(modal){
 			modal.close.then(function(result){
         		if(result){
-        			$scope.selectProfesional();
+        			$scope.selectProfesional(idService);
         		}	
 			})
 		})
 	};
 
-	$scope.selectProfesional = function(){
+	$scope.selectProfesional = function(idService){
 		//La parte del select donde mostramos los datos en la tabla
 		angular.element($("#spinerContainer")).css("display", "block");
-		$http.get('../models/selectProfesionales.php').success(function(data){
+		$http.get('../models/selectProfesionales.php', { params: { idService: idService } }).success(function(data){
 			angular.element($("#spinerContainer")).css("display", "none");
 			$scope.profesionales = data;
 			var topbar = angular.element($(".navbar-default")).innerHeight();
@@ -162,7 +162,8 @@ angular.module('profesionales',['angularModalService'])
 			user: $scope.user,
 			pass: $scope.pass,
 			ci: $scope.ci,
-			telefono: $scope.telefono
+			telefono: $scope.telefono,
+			idService: idService
 		};
 	
 		if(model.nombre == undefined || model.apellido == undefined || model.ci == undefined 
@@ -211,6 +212,7 @@ angular.module('profesionales',['angularModalService'])
 			pass: $scope.pass,
 			ci: $scope.ci,
 			telefono: $scope.telefono,
+			idService : idService
 		};
 
 		if(model.nombre == undefined || model.apellido == undefined || model.ci == undefined 

@@ -1,8 +1,10 @@
 <?php
 
 	include("../conect.php");
+	$idService = $_GET['idService'];
 
-	$sql = "select Servicios.idServicio, Servicios.Nombre, Servicios.Descripcion, Servicios.Costo from Servicios where Active='0'";
+	$sql = "select Servicios.idServicio, Servicios.Nombre, Servicios.Descripcion, 
+	Servicios.Costo from Servicios where Active='0' and Servicios.empresaServicio_id='$idService'";
 	
 	$results = $con->query($sql);
 

@@ -20,18 +20,23 @@
 <body>
  <div class="container">
         <div class="card card-container">
+            <button class="btn btn-lg btn-success btn-block btn-signin" 
+            name="register" onclick="goToRegisterPage()">Prueba gratis</button>
+            <br>
             <img id="profile-img" class="profile-img-card" src="img/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
             <form method="post" accept-charset="utf-8" action="ingreso.php" name="loginform" autocomplete="off" role="form" class="form-signin">
 			
                 <span id="reauth-email" class="reauth-email"></span>
                 <input class="form-control" placeholder="Usuario" name="user" type="text" value="" autofocus="" required>
                 <input class="form-control" placeholder="Contraseña" name="pass" type="password" value="" autocomplete="off" required>
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" id="submit">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-lg btn-info btn-block btn-signin" name="login" id="submit">Iniciar Sesión</button>
             </form><!-- /form -->
             
         </div><!-- /card-container -->
     </div><!-- /container -->
   </body>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="controllers/main.js"></script>
 </html>
 

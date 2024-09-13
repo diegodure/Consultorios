@@ -4,6 +4,9 @@
     
     if(isset($_SESSION['user'])){
     	$title = "Impulse";
+		$idUser = $_SESSION['idUser'];
+        $roleUser = $_SESSION['user'];
+        $idService = $_SESSION['idService'];
   ?>
   <!DOCTYPE html>
 <html>

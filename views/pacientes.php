@@ -6,6 +6,7 @@
     	$title = "Pacientes";
     	$idUser = $_SESSION['idUser'];
     	$roleUser = $_SESSION['user'];
+		$idService = $_SESSION['idService'];
   ?>
   <!DOCTYPE html>
 <html>

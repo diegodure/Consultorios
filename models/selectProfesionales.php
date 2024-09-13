@@ -1,8 +1,13 @@
 <?php
 
 	include("../conect.php");
+	
+	$idService = $_GET['idService'];
 
-	$sql = "select Usuarios.idUsuario, Usuarios.Ci, Usuarios.Telefono, Usuarios.idUsuario, Usuarios.Nombres, Usuarios.Apellidos, Usuarios.User, Usuarios.Pass, Roles.Nombre as Rol, Roles.idRol as rolId from Usuarios inner join Roles on Usuarios.Roles_idRol=Roles.idRol where Roles.idRol = 2";
+	$sql = "select Usuarios.idUsuario, Usuarios.Ci, Usuarios.Telefono, Usuarios.idUsuario, 
+	Usuarios.Nombres, Usuarios.Apellidos, Usuarios.User, Usuarios.Pass, Roles.Nombre as Rol, 
+	Roles.idRol as rolId from Usuarios inner join Roles on Usuarios.Roles_idRol=Roles.idRol where 
+	Roles.idRol = '2' and Usuarios.empresa_id='$idService'";
 	
 	$results = $con->query($sql);
 
