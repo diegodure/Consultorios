@@ -1,6 +1,6 @@
 # Consultorios
 
-Sistema para consultorios en general
+Software for medical offices, made in php, angularjs, mysql, dependency management with bower and node
 
 ESTADOS
 1 Pendiente
